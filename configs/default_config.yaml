@@ -23,6 +23,7 @@ preprocessing:
   sequence_length: 16      # number of sampled frames
   sampling_strategy: "uniform_early" # early action prediction: first observation_ratio of the video
   observation_ratio: 0.5   # observe first 50% of the video to predict action
+  normalization: "mobilenet_v2" # mobilenet_v2 maps to [-1, 1], zero_one maps to [0, 1]
 
 # Model Parameters
 model:

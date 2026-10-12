@@ -119,20 +119,3 @@ Run all unit tests:
 ```powershell
 pytest tests -v
 ```
-
----
-
-## 8. Development Roadmap
-
-- [x] **Phase 1: Project inspection and clean setup**
-- [x] **Phase 2: Dataset verification and class selection** *(Current)*
-- [ ] **Phase 3: Data preparation and temporal sampling**
-- [ ] **Phase 4: Build a CNN feature extractor (MobileNetV2)**
-- [ ] **Phase 5: Create a CNN-only baseline**
-- [ ] **Phase 6: Build the CNN + LSTM model**
-- [ ] **Phase 7: Add temporal attention mechanism**
-- [ ] **Phase 8: Training pipeline & configuration**
-- [ ] **Phase 9: Final evaluation & error analysis**
-- [ ] **Phase 10: Inference on unseen videos**
-- [ ] **Phase 11: Optional interactive demonstration**
-- [ ] **Phase 12: Documentation & final verification**

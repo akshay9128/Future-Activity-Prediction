@@ -1,6 +1,5 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-<<<<<<< HEAD
 *.py[cod]
 *$py.class
 *.pyd
@@ -9,7 +8,6 @@ __pycache__/
 venv/
 .venv/
 env/
-=======
 *.py[codz]
 *$py.class
 
@@ -165,12 +163,10 @@ activemq-data/
 .venv
 env/
 venv/
->>>>>>> 05cf14d83e10833d69ad12b097c2dae7e6a4335d
 ENV/
 env.bak/
 venv.bak/
 
-<<<<<<< HEAD
 # Testing & Coverage caches
 .pytest_cache/
 .coverage
@@ -230,7 +226,6 @@ secrets.json
 .DS_Store
 Thumbs.db
 desktop.ini
-=======
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -290,4 +285,3 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
->>>>>>> 05cf14d83e10833d69ad12b097c2dae7e6a4335d

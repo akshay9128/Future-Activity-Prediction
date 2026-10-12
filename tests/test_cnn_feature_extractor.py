@@ -1,6 +1,7 @@
 """
-Phase 4 Test Suite: Pretrained CNN feature extractor (MobileNetV2).
+Test Suite: Pretrained CNN feature extractor (MobileNetV2).
 """
+
 
 from pathlib import Path
 import sys
@@ -113,4 +114,5 @@ if __name__ == "__main__":
     test_sequence_feature_extraction(extractor)
     test_cnn_weights_are_frozen(extractor)
     test_actual_video_frame_through_cnn(extractor)
-    print("All Phase 4 CNN feature extractor tests passed successfully!")
+    print("All CNN feature extractor tests passed successfully!")
+

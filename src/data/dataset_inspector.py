@@ -174,8 +174,9 @@ def main() -> None:
     selected_classes = config["dataset"]["selected_classes"]
 
     print(f"==================================================")
-    print(f"      UCF101 Dataset Inspection (Phase 2)        ")
+    print(f"            UCF101 Dataset Inspection             ")
     print(f"==================================================")
+
     print(f"Target Directory : {raw_dir}")
     print(f"Selected Classes : {', '.join(selected_classes)}")
     print(f"--------------------------------------------------")

@@ -1,6 +1,7 @@
 """
-Phase 2 Test Suite: UCF101 dataset verification and class inspection.
+Test Suite: UCF101 dataset verification and class inspection.
 """
+
 
 from pathlib import Path
 import sys
@@ -113,4 +114,5 @@ if __name__ == "__main__":
     test_sample_videos_readable(cfg)
     test_unreadable_and_missing_videos_reported()
     test_dataset_summary_json_file_created()
-    print("All Phase 2 dataset inspection tests passed successfully!")
+    print("All dataset inspection tests passed successfully!")
+

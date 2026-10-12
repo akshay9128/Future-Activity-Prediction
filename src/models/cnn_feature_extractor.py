@@ -108,11 +108,12 @@ class CNNFeatureExtractor:
             weights=weights,
         )
         self.feature_dim = self.frame_model.output_shape[-1]
-        self.sequence_model = build_sequence_feature_extractor(
-            cnn_model=self.frame_model,
-            sequence_length=sequence_length,
-            input_shape=input_shape,
-        )
+        # Graph-accelerated forward pass for maximum throughput
+        @tf.function(reduce_retracing=True)
+        def _predict_batch(tensor):
+            return self.frame_model(tensor, training=False)
+
+        self._predict_batch = _predict_batch
 
     def extract_frame_features(self, frames: np.ndarray) -> np.ndarray:
         """
@@ -123,12 +124,11 @@ class CNNFeatureExtractor:
         """
         frames_tensor = tf.convert_to_tensor(frames, dtype=tf.float32)
         if len(frames.shape) == 3:
-            # Single frame: add batch dimension
             frames_tensor = tf.expand_dims(frames_tensor, axis=0)
-            features = self.frame_model(frames_tensor, training=False)
+            features = self._predict_batch(frames_tensor)
             return features.numpy().squeeze(axis=0)
         elif len(frames.shape) == 4:
-            features = self.frame_model(frames_tensor, training=False)
+            features = self._predict_batch(frames_tensor)
             return features.numpy()
         else:
             raise ValueError(f"Expected 3D or 4D tensor, got shape {frames.shape}")
@@ -142,22 +142,26 @@ class CNNFeatureExtractor:
         """
         seq_tensor = tf.convert_to_tensor(sequences, dtype=tf.float32)
         if len(sequences.shape) == 4:
-            # Single video sequence: add batch dimension
-            seq_tensor = tf.expand_dims(seq_tensor, axis=0)
-            features = self.sequence_model(seq_tensor, training=False)
-            return features.numpy().squeeze(axis=0)
-        elif len(sequences.shape) == 5:
-            features = self.sequence_model(seq_tensor, training=False)
+            # (T, H, W, C) is treated directly as a batch of T frames:
+            features = self._predict_batch(seq_tensor)
             return features.numpy()
+        elif len(sequences.shape) == 5:
+            # (B, T, H, W, C) -> flatten B and T into single batch (B * T, H, W, C)
+            b, t, h, w, c = sequences.shape
+            flattened = tf.reshape(seq_tensor, (b * t, h, w, c))
+            features = self._predict_batch(flattened)
+            return tf.reshape(features, (b, t, self.feature_dim)).numpy()
         else:
             raise ValueError(f"Expected 4D or 5D sequence tensor, got shape {sequences.shape}")
+
 
 
 def main() -> None:
     """CLI demonstration of CNN feature extractor."""
     print("==================================================")
-    print("      CNN Feature Extractor Verification (Phase 4)")
+    print("        CNN Feature Extractor Verification        ")
     print("==================================================")
+
 
     config_path = PROJECT_ROOT / "configs" / "default_config.yaml"
     config = load_config(config_path)

@@ -192,8 +192,9 @@ def main() -> None:
     seed = config.get("seed", 42)
 
     print("==================================================")
-    print("      Building Dataset Manifest (Phase 3)         ")
+    print("            Building Dataset Manifest             ")
     print("==================================================")
+
     print(f"Dataset Root   : {dataset_cfg['raw_dir']}")
     print(f"Selected Classes: {dataset_cfg['selected_classes']}")
     print(f"Splits Target  : Train {dataset_cfg['train_split']*100:.0f}% / Val {dataset_cfg['val_split']*100:.0f}% / Test {dataset_cfg['test_split']*100:.0f}%")

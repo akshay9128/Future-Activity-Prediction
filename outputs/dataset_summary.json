@@ -1,0 +1,184 @@
+{
+  "dataset_root": "D:\\datasets\\UCF-101",
+  "root_exists": true,
+  "total_selected_classes": 5,
+  "available_classes": [
+    "Basketball",
+    "Biking",
+    "WalkingWithDog",
+    "JumpingJack",
+    "ApplyEyeMakeup"
+  ],
+  "missing_classes": [],
+  "class_video_counts": {
+    "Basketball": 134,
+    "Biking": 134,
+    "WalkingWithDog": 123,
+    "JumpingJack": 123,
+    "ApplyEyeMakeup": 145
+  },
+  "total_videos_found": 659,
+  "sample_inspections": {
+    "Basketball": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Basketball\\v_Basketball_g01_c01.avi",
+        "filename": "v_Basketball_g01_c01.avi",
+        "frame_count": 141,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Basketball\\v_Basketball_g01_c02.avi",
+        "filename": "v_Basketball_g01_c02.avi",
+        "frame_count": 180,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Basketball\\v_Basketball_g01_c03.avi",
+        "filename": "v_Basketball_g01_c03.avi",
+        "frame_count": 206,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Biking": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Biking\\v_Biking_g01_c01.avi",
+        "filename": "v_Biking_g01_c01.avi",
+        "frame_count": 151,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Biking\\v_Biking_g01_c02.avi",
+        "filename": "v_Biking_g01_c02.avi",
+        "frame_count": 151,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Biking\\v_Biking_g01_c03.avi",
+        "filename": "v_Biking_g01_c03.avi",
+        "frame_count": 151,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "WalkingWithDog": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\WalkingWithDog\\v_WalkingWithDog_g01_c01.avi",
+        "filename": "v_WalkingWithDog_g01_c01.avi",
+        "frame_count": 240,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\WalkingWithDog\\v_WalkingWithDog_g01_c02.avi",
+        "filename": "v_WalkingWithDog_g01_c02.avi",
+        "frame_count": 240,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\WalkingWithDog\\v_WalkingWithDog_g01_c03.avi",
+        "filename": "v_WalkingWithDog_g01_c03.avi",
+        "frame_count": 240,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "JumpingJack": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JumpingJack\\v_JumpingJack_g01_c01.avi",
+        "filename": "v_JumpingJack_g01_c01.avi",
+        "frame_count": 93,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JumpingJack\\v_JumpingJack_g01_c02.avi",
+        "filename": "v_JumpingJack_g01_c02.avi",
+        "frame_count": 91,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JumpingJack\\v_JumpingJack_g01_c03.avi",
+        "filename": "v_JumpingJack_g01_c03.avi",
+        "frame_count": 92,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "ApplyEyeMakeup": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ApplyEyeMakeup\\v_ApplyEyeMakeup_g01_c01.avi",
+        "filename": "v_ApplyEyeMakeup_g01_c01.avi",
+        "frame_count": 164,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ApplyEyeMakeup\\v_ApplyEyeMakeup_g01_c02.avi",
+        "filename": "v_ApplyEyeMakeup_g01_c02.avi",
+        "frame_count": 123,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ApplyEyeMakeup\\v_ApplyEyeMakeup_g01_c03.avi",
+        "filename": "v_ApplyEyeMakeup_g01_c03.avi",
+        "frame_count": 259,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ]
+  },
+  "all_classes_valid": true
+}

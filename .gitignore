@@ -1,0 +1,73 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Testing & Coverage caches
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Datasets, Raw Videos & Large Data Files
+datasets/
+data/raw/
+*.avi
+*.mp4
+*.mov
+*.mkv
+*.tar
+*.gz
+*.zip
+*.rar
+UCF101/
+UCF-101/
+
+# Model Checkpoints, Weights & Exports
+outputs/checkpoints/
+outputs/models/
+*.h5
+*.keras
+*.weights.h5
+*.ckpt*
+*.pb
+*.tflite
+*.pt
+*.pth
+
+# Processed Feature Caches & Arrays
+*.npy
+*.npz
+*.pkl
+*.pickle
+outputs/cache/
+
+# Experiment Logs & Visualizations
+outputs/logs/
+*.log
+runs/
+wandb/
+
+# Environment Variables & Secrets
+.env
+.env.*
+secrets.json
+
+# IDEs & System Files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini

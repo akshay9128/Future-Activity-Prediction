@@ -6,16 +6,14 @@ seed: 42
 # Dataset Configuration
 dataset:
   raw_dir: "D:/datasets/UCF-101"
-  selected_classes:
-    - "Basketball"
-    - "Biking"
-    - "WalkingWithDog"
-    - "JumpingJack"
-    - "ApplyEyeMakeup"
+  selected_classes: "all"  # "all" auto-discovers all 101 UCF101 classes, or specify a list of class names
   videos_per_class_limit: null  # null means use all available, or integer for quick testing
   train_split: 0.70
   val_split: 0.15
   test_split: 0.15
+  max_train_per_class: 10
+  max_val_per_class: 3
+  max_test_per_class: 3
 
 # Video Sampling & Preprocessing
 preprocessing:
@@ -31,11 +29,11 @@ model:
   trainable_backbone: false
   lstm_units: 64
   dropout_rate: 0.3
-  num_classes: 5
+  num_classes: 101
 
 # Training Parameters
 training:
-  batch_size: 8
+  batch_size: 16
   epochs: 15
   learning_rate: 0.001
   early_stopping_patience: 5
@@ -43,5 +41,8 @@ training:
 # Output Paths
 paths:
   manifest_csv: "outputs/dataset_manifest.csv"
+  class_to_idx_json: "outputs/class_to_idx.json"
+  idx_to_class_json: "outputs/idx_to_class.json"
   checkpoints_dir: "outputs/checkpoints"
   logs_dir: "outputs/logs"
+  reports_dir: "outputs/reports"

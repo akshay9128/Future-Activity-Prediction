@@ -209,6 +209,7 @@ outputs/cache/
 
 # Experiment Logs & Visualizations
 outputs/logs/
+outputs/uploads/
 *.log
 runs/
 wandb/

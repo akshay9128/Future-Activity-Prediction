@@ -13,7 +13,10 @@ import argparse
 import json
 from pathlib import Path
 import sys
+import time
 from typing import Any, Dict, List, Optional, Tuple
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -43,7 +46,7 @@ class ActivityPredictor:
 
     def __init__(
         self,
-        model_type: str = "cnn_lstm_attention",
+        model_type: str = "cnn_lstm",
         model_path: Optional[str | Path] = None,
         config_path: str | Path = "configs/default_config.yaml",
     ) -> None:
@@ -51,12 +54,11 @@ class ActivityPredictor:
         Initialize the predictor with feature extractor and classification head.
 
         Args:
-            model_type: 'cnn_lstm_attention', 'cnn_lstm', or 'cnn_baseline'.
+            model_type: 'cnn_lstm' (default), 'cnn_lstm_attention', or 'cnn_baseline'.
             model_path: Path to .keras model weights. Defaults to outputs/models/.
             config_path: Path to default_config.yaml.
         """
         self.config = load_config(config_path)
-        self.classes = sorted(self.config["dataset"]["selected_classes"])
         self.model_type = model_type.lower()
 
         if self.model_type not in DEFAULT_MODEL_PATHS:
@@ -85,12 +87,49 @@ class ActivityPredictor:
 
         # 2. Load Head Model
         self.head_model = tf.keras.models.load_model(self.model_path, compile=False)
+        output_dim = self.head_model.output_shape[-1]
+        self.classes = self._resolve_classes(output_dim)
 
         # 3. If attention model, prepare attention extraction graph
         if self.model_type == "cnn_lstm_attention":
             self.attention_extractor = get_attention_extraction_model(self.head_model)
         else:
             self.attention_extractor = None
+
+    def _resolve_classes(self, output_dim: int) -> List[str]:
+        """Resolve class names matching the loaded head model's output dimension."""
+        cfg_classes = self.config.get("dataset", {}).get("selected_classes")
+        if isinstance(cfg_classes, list) and len(cfg_classes) == output_dim:
+            return sorted(cfg_classes)
+
+        if output_dim == 5:
+            return ["ApplyEyeMakeup", "Basketball", "Biking", "JumpingJack", "WalkingWithDog"]
+
+        class_to_idx_path = PROJECT_ROOT / "outputs" / "class_to_idx.json"
+        if class_to_idx_path.exists():
+            try:
+                with open(class_to_idx_path, "r", encoding="utf-8") as f:
+                    mapping = json.load(f)
+                sorted_classes = [k for k, _ in sorted(mapping.items(), key=lambda item: item[1])]
+                if len(sorted_classes) == output_dim:
+                    return sorted_classes
+                else:
+                    raise ValueError(
+                        f"Incompatible class mapping: mapping '{class_to_idx_path}' has {len(sorted_classes)} classes, "
+                        f"but model output layer expects {output_dim} classes."
+                    )
+            except ValueError:
+                raise
+            except Exception:
+                pass
+
+        raw_dir = Path(self.config.get("dataset", {}).get("raw_dir", "D:/datasets/UCF-101"))
+        if raw_dir.exists():
+            dirs = [d.name for d in raw_dir.iterdir() if d.is_dir() and not d.name.startswith(".")]
+            if len(dirs) == output_dim:
+                return sorted(dirs)
+
+        return [f"Class_{i}" for i in range(output_dim)]
 
     def predict_video(
         self,
@@ -119,6 +158,7 @@ class ActivityPredictor:
             observation_ratio = float(self.config["preprocessing"]["observation_ratio"])
 
         # 1. Sample video frames (normalized to [-1, 1] for MobileNetV2)
+        start_time = time.perf_counter()
         normalized_frames = load_and_sample_video(
             video_path=vid_p,
             sequence_length=seq_len,
@@ -152,25 +192,64 @@ class ActivityPredictor:
         else:
             probs = self.head_model.predict(feature_batch, verbose=0)[0]
 
+        infer_duration_ms = round((time.perf_counter() - start_time) * 1000, 2)
+
         # 4. Process Class Probabilities
         pred_idx = int(np.argmax(probs))
         pred_class = self.classes[pred_idx]
         confidence = float(probs[pred_idx])
 
+        # Top-5 Ranking
+        top_k = min(5, len(self.classes))
+        sorted_top_indices = np.argsort(probs)[::-1][:top_k]
+        top_5_predictions = [
+            {
+                "rank": rank + 1,
+                "class_name": self.classes[idx],
+                "class_index": int(idx),
+                "confidence": round(float(probs[idx]), 4),
+                "confidence_pct": round(float(probs[idx]) * 100, 2),
+            }
+            for rank, idx in enumerate(sorted_top_indices)
+        ]
+
         class_probs = {
             cls_name: round(float(probs[i]), 4) for i, cls_name in enumerate(self.classes)
         }
 
+        # Determine video dataset provenance
+        dataset_source = "external_unseen_video"
+        manifest_path = PROJECT_ROOT / self.config.get("paths", {}).get("manifest_csv", "outputs/dataset_manifest.csv")
+        if manifest_path.exists():
+            try:
+                import pandas as pd
+                manifest_df = pd.read_csv(manifest_path)
+                match = manifest_df[manifest_df["video_id"] == vid_p.name]
+                if not match.empty:
+                    split_val = str(match.iloc[0]["split"]).lower()
+                    if split_val == "test":
+                        dataset_source = "held_out_test_set"
+                    elif split_val == "val":
+                        dataset_source = "validation_set"
+                    elif split_val == "train":
+                        dataset_source = "training_set"
+            except Exception:
+                pass
+
         result: Dict[str, Any] = {
+            "task_description": "Early video activity classification (first 50% observed)",
             "video_path": str(vid_p.resolve()),
             "video_name": vid_p.name,
+            "dataset_source": dataset_source,
             "model_type": self.model_type,
             "observation_ratio": observation_ratio,
             "sequence_length": seq_len,
+            "inference_time_ms": infer_duration_ms,
             "predicted_class": pred_class,
             "predicted_class_index": pred_idx,
             "confidence": round(confidence, 4),
             "confidence_pct": round(confidence * 100, 2),
+            "top_5_predictions": top_5_predictions,
             "class_probabilities": class_probs,
             "attention_weights": attention_weights,
             "top_attended_frames": top_frames,
@@ -256,18 +335,25 @@ class ActivityPredictor:
             attn_ax.legend(loc="upper right", fontsize=8)
             attn_ax.grid(axis="y", linestyle=":", alpha=0.5)
 
-        # 3. Class Probability Bar Chart
+        # 3. Class Probability Bar Chart (Top-5 Predictions)
         prob_ax = fig.add_subplot(gs[2])
-        classes = list(class_probs.keys())
-        probs = [class_probs[c] * 100 for c in classes]
-        colors = ["#2ca02c" if c == pred_class else "#1f77b4" for c in classes]
+        top_5 = prediction_result.get("top_5_predictions", [])
+        if top_5:
+            plot_classes = [p["class_name"] for p in reversed(top_5)]
+            plot_probs = [p["confidence_pct"] for p in reversed(top_5)]
+        else:
+            classes = list(class_probs.keys())[:5]
+            plot_classes = list(reversed(classes))
+            plot_probs = [class_probs[c] * 100 for c in plot_classes]
 
-        bars_p = prob_ax.barh(classes, probs, color=colors, edgecolor="black", height=0.55)
-        prob_ax.set_xlabel("Predicted Probability (%)", fontsize=10)
+        colors = ["#2ca02c" if c == pred_class else "#1f77b4" for c in plot_classes]
+
+        bars_p = prob_ax.barh(plot_classes, plot_probs, color=colors, edgecolor="black", height=0.55)
+        prob_ax.set_xlabel("Predicted Confidence (%)", fontsize=10)
         prob_ax.set_xlim([0, 105])
         prob_ax.set_title(
-            f"Prediction: {pred_class} (Confidence: {confidence:.2f}%) | Model: {prediction_result['model_type']}",
-            fontsize=12,
+            f"Top Predictions: {pred_class} (Confidence: {confidence:.2f}%) | Model: {prediction_result['model_type']} | Source: {prediction_result.get('dataset_source', 'video')}",
+            fontsize=11,
             fontweight="bold",
             loc="left",
         )
@@ -290,36 +376,47 @@ class ActivityPredictor:
 
     def print_prediction_summary(self, result: Dict[str, Any]) -> None:
         """Print clean ASCII summary report of the prediction to the console."""
-        print("\n" + "=" * 60)
+        print("\n" + "=" * 65)
         print("          ACTIVITY PREDICTION INFERENCE REPORT          ")
-        print("=" * 60)
+        print("=" * 65)
+        print(f"Task Description : {result.get('task_description', 'Early Activity Prediction')}")
         print(f"Video File       : {result['video_name']}")
+        print(f"Video Provenance : {result.get('dataset_source', 'external_unseen_video')}")
         print(f"Model Engine     : {result['model_type']}")
         print(f"Observation Ratio: {int(result['observation_ratio'] * 100)}% of video duration")
         print(f"Sampled Frames   : {result['sequence_length']} frames")
-        print("-" * 60)
+        print(f"Inference Latency: {result.get('inference_time_ms', 0.0):.2f} ms")
+        print("-" * 65)
         print(f"PREDICTED ACTION : {result['predicted_class'].upper()}")
         print(f"CONFIDENCE       : {result['confidence_pct']:.2f}%")
-        print("-" * 60)
-        print("Class Probabilities:")
-        for cls_name, prob in result["class_probabilities"].items():
-            bar_len = int(prob * 30)
-            bar_str = "=" * bar_len + "-" * (30 - bar_len)
-            marker = "<-- [PREDICTED]" if cls_name == result["predicted_class"] else ""
-            print(f"  {cls_name:<16} : [{bar_str}] {prob * 100:>5.1f}% {marker}")
+        print("-" * 65)
+        print("Top-5 Predictions:")
+        top_5 = result.get("top_5_predictions", [])
+        if top_5:
+            for p in top_5:
+                bar_len = int(p["confidence"] * 30)
+                bar_str = "=" * bar_len + "-" * (30 - bar_len)
+                marker = "<-- [PREDICTED]" if p["class_name"] == result["predicted_class"] else ""
+                print(f"  {p['rank']}. {p['class_name']:<20} : [{bar_str}] {p['confidence_pct']:>5.1f}% {marker}")
+        else:
+            for cls_name, prob in list(result["class_probabilities"].items())[:5]:
+                bar_len = int(prob * 30)
+                bar_str = "=" * bar_len + "-" * (30 - bar_len)
+                marker = "<-- [PREDICTED]" if cls_name == result["predicted_class"] else ""
+                print(f"  {cls_name:<20} : [{bar_str}] {prob * 100:>5.1f}% {marker}")
 
         if result.get("attention_weights") is not None:
-            print("-" * 60)
+            print("-" * 65)
             top_frames = result.get("top_attended_frames") or []
             print(f"Top Attended Keyframes: {', '.join(f'T={f}' for f in top_frames)}")
             attn_str = " ".join(f"{w:.2f}" for w in result["attention_weights"])
             print(f"Attention Weights     : [{attn_str}]")
-        print("=" * 60 + "\n")
+        print("=" * 65 + "\n")
 
 
 def predict_video_cli(
     video_path: str,
-    model_type: str = "cnn_lstm_attention",
+    model_type: str = "cnn_lstm",
     model_path: Optional[str] = None,
     observation_ratio: Optional[float] = None,
     save_viz: Optional[str] = None,
@@ -365,7 +462,7 @@ def predict_video_cli(
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Predict human activity from an early video segment."
+        description="Predict human activity from an early video segment using CNN + LSTM."
     )
     parser.add_argument(
         "--video",
@@ -376,9 +473,9 @@ def main() -> None:
     parser.add_argument(
         "--model",
         type=str,
-        default="cnn_lstm_attention",
-        choices=["cnn_lstm_attention", "cnn_lstm", "cnn_baseline"],
-        help="Architecture to use for inference (default: cnn_lstm_attention).",
+        default="cnn_lstm",
+        choices=["cnn_lstm", "cnn_lstm_attention", "cnn_baseline"],
+        help="Architecture to use for inference (default: cnn_lstm).",
     )
     parser.add_argument(
         "--weights",

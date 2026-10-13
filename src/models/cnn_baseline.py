@@ -21,7 +21,7 @@ def build_cnn_baseline_head(
     sequence_length: int = 16,
     feature_dim: int = 1280,
     dense_units: int = 64,
-    num_classes: int = 5,
+    num_classes: int = 101,
     dropout_rate: float = 0.3,
 ) -> tf.keras.Model:
     """
@@ -31,7 +31,7 @@ def build_cnn_baseline_head(
         sequence_length: Temporal length (number of frames).
         feature_dim: CNN embedding dimension (1280 for MobileNetV2).
         dense_units: Number of neurons in intermediate dense layer.
-        num_classes: Number of target action categories (5).
+        num_classes: Number of target action categories (default 101 for full UCF-101).
         dropout_rate: Dropout rate for regularization.
 
     Returns:

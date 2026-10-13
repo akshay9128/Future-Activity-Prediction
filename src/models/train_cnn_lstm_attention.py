@@ -72,32 +72,45 @@ def plot_confusion_matrix(
     cm: np.ndarray, class_names: List[str], output_path: Path
 ) -> None:
     """Plot and save normalized confusion matrix."""
-    fig, ax = plt.subplots(figsize=(6, 5))
+    n_classes = len(class_names)
+    figsize = (6, 5) if n_classes <= 10 else (12, 10)
+    fig, ax = plt.subplots(figsize=figsize)
     im = ax.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
     ax.figure.colorbar(im, ax=ax)
 
-    ax.set(
-        xticks=np.arange(cm.shape[1]),
-        yticks=np.arange(cm.shape[0]),
-        xticklabels=class_names,
-        yticklabels=class_names,
-        title="CNN + LSTM + Attention Validation Confusion Matrix",
-        ylabel="Ground Truth Label",
-        xlabel="Predicted Label",
-    )
-    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+    if n_classes <= 15:
+        ax.set(
+            xticks=np.arange(cm.shape[1]),
+            yticks=np.arange(cm.shape[0]),
+            xticklabels=class_names,
+            yticklabels=class_names,
+            title="CNN + LSTM + Attention Validation Confusion Matrix",
+            ylabel="Ground Truth Label",
+            xlabel="Predicted Label",
+        )
+        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
 
-    thresh = cm.max() / 2.0
-    for i in range(cm.shape[0]):
-        for j in range(cm.shape[1]):
-            ax.text(
-                j,
-                i,
-                format(cm[i, j], "d"),
-                ha="center",
-                va="center",
-                color="white" if cm[i, j] > thresh else "black",
-            )
+        thresh = cm.max() / 2.0
+        for i in range(cm.shape[0]):
+            for j in range(cm.shape[1]):
+                ax.text(
+                    j,
+                    i,
+                    format(cm[i, j], "d"),
+                    ha="center",
+                    va="center",
+                    color="white" if cm[i, j] > thresh else "black",
+                )
+    else:
+        ax.set(
+            title=f"CNN + LSTM + Attention Validation Confusion Matrix ({n_classes} Classes)",
+            ylabel="Ground Truth Label Index",
+            xlabel="Predicted Label Index",
+        )
+        tick_step = max(1, n_classes // 10)
+        ticks = np.arange(0, n_classes, tick_step)
+        ax.set_xticks(ticks)
+        ax.set_yticks(ticks)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     plt.tight_layout()
@@ -114,34 +127,37 @@ def plot_attention_weights_by_class(
     output_path: Path,
 ) -> None:
     """
-    Plot temporal attention distributions across the 16 observed time steps
+    Plot temporal attention distributions across observed time steps
     for representative correctly-classified validation samples of each class.
     """
     probs, weights = extractor_model.predict(x_val, verbose=0)
     preds = np.argmax(probs, axis=1)
-    weights = np.squeeze(weights, axis=-1)  # (N, 16)
+    weights = np.squeeze(weights, axis=-1)  # (N, T)
 
-    fig, axes = plt.subplots(len(class_names), 1, figsize=(10, 2.2 * len(class_names)), sharex=True)
-    if len(class_names) == 1:
+    display_classes = class_names[:5] if len(class_names) > 5 else class_names
+    fig, axes = plt.subplots(len(display_classes), 1, figsize=(10, 2.2 * len(display_classes)), sharex=True)
+    if len(display_classes) == 1:
         axes = [axes]
 
     timesteps = np.arange(1, weights.shape[1] + 1)
-    # Colors for distinct visual presentation
     colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"]
 
-    for idx, class_name in enumerate(class_names):
-        ax = axes[idx]
-        # Find correctly classified samples for this class
-        matching_indices = np.where((y_val == idx) & (preds == idx))[0]
+    for sub_idx, class_name in enumerate(display_classes):
+        actual_class_idx = class_names.index(class_name)
+        ax = axes[sub_idx]
+        matching_indices = np.where((y_val == actual_class_idx) & (preds == actual_class_idx))[0]
         if len(matching_indices) == 0:
-            matching_indices = np.where(y_val == idx)[0]
+            matching_indices = np.where(y_val == actual_class_idx)[0]
 
-        # Average attention across matching validation samples for class
-        class_weights = weights[matching_indices]
-        mean_weights = np.mean(class_weights, axis=0)
-        std_weights = np.std(class_weights, axis=0)
+        if len(matching_indices) == 0:
+            mean_weights = np.full(weights.shape[1], 1.0 / weights.shape[1])
+            std_weights = np.zeros(weights.shape[1])
+        else:
+            class_weights = weights[matching_indices]
+            mean_weights = np.mean(class_weights, axis=0)
+            std_weights = np.std(class_weights, axis=0)
 
-        color = colors[idx % len(colors)]
+        color = colors[sub_idx % len(colors)]
         ax.plot(timesteps, mean_weights, marker="o", color=color, linewidth=2, label=f"{class_name} (n={len(matching_indices)})")
         ax.fill_between(timesteps, mean_weights - std_weights, mean_weights + std_weights, color=color, alpha=0.2)
         ax.axhline(1.0 / len(timesteps), color="gray", linestyle="--", linewidth=1, alpha=0.7, label="Uniform baseline")
@@ -150,7 +166,7 @@ def plot_attention_weights_by_class(
         ax.legend(loc="upper right", fontsize=8)
         ax.grid(True, linestyle=":", alpha=0.5)
 
-    axes[-1].set_xlabel("Sampled Timestep (1 to 16, within first 50% of video)", fontsize=10)
+    axes[-1].set_xlabel(f"Sampled Timestep (1 to {weights.shape[1]}, within first 50% of video)", fontsize=10)
     axes[-1].set_xticks(timesteps)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -178,7 +194,11 @@ def train_cnn_lstm_attention(config_path: Path | str = "configs/default_config.y
 
     manifest_path = Path(config["paths"]["manifest_csv"])
     manifest_df = load_manifest(manifest_path)
-    selected_classes = sorted(config["dataset"]["selected_classes"])
+    cfg_classes = config["dataset"].get("selected_classes")
+    if isinstance(cfg_classes, list):
+        selected_classes = sorted(cfg_classes)
+    else:
+        selected_classes = sorted(manifest_df["class_name"].unique())
     num_classes = len(selected_classes)
 
     lstm_units = config["model"].get("lstm_units", 64)
@@ -194,7 +214,8 @@ def train_cnn_lstm_attention(config_path: Path | str = "configs/default_config.y
     print(f"Epochs         : {epochs}", flush=True)
     print(f"Batch Size     : {batch_size}", flush=True)
     print(f"Learning Rate  : {lr}", flush=True)
-    print(f"Classes ({num_classes})   : {', '.join(selected_classes)}", flush=True)
+    class_str = ", ".join(selected_classes) if num_classes <= 5 else f"{num_classes} classes ({selected_classes[0]} ... {selected_classes[-1]})"
+    print(f"Classes ({num_classes})   : {class_str}", flush=True)
     print("--------------------------------------------------", flush=True)
 
     # 1. Feature Extractor
@@ -211,11 +232,13 @@ def train_cnn_lstm_attention(config_path: Path | str = "configs/default_config.y
 
     # 2. Extract or load cached features
     cache_dir = Path("outputs/cache")
+    max_train = config["dataset"].get("max_train_per_class", None)
+    max_val = config["dataset"].get("max_val_per_class", None)
     x_train, y_train = get_or_extract_split_features(
-        manifest_df, "train", extractor, cache_dir, seq_len, target_size, obs_ratio
+        manifest_df, "train", extractor, cache_dir, seq_len, target_size, obs_ratio, max_samples_per_class=max_train
     )
     x_val, y_val = get_or_extract_split_features(
-        manifest_df, "val", extractor, cache_dir, seq_len, target_size, obs_ratio
+        manifest_df, "val", extractor, cache_dir, seq_len, target_size, obs_ratio, max_samples_per_class=max_val
     )
 
     print(f"\nTraining Data   : Features {x_train.shape}, Labels {y_train.shape}", flush=True)
@@ -271,15 +294,21 @@ def train_cnn_lstm_attention(config_path: Path | str = "configs/default_config.y
     val_probs = head_model.predict(x_val, verbose=0)
     val_preds = np.argmax(val_probs, axis=1)
 
-    cm = confusion_matrix(y_val, val_preds)
+    class_indices = list(range(len(selected_classes)))
+    cm = confusion_matrix(y_val, val_preds, labels=class_indices)
     report = classification_report(
-        y_val, val_preds, target_names=selected_classes, output_dict=True
+        y_val,
+        val_preds,
+        labels=class_indices,
+        target_names=selected_classes,
+        output_dict=True,
+        zero_division=0,
     )
 
     print("\n==================================================", flush=True)
     print(f"Validation Results: Loss = {val_loss:.4f}, Accuracy = {val_acc:.4f} ({val_acc*100:.2f}%)", flush=True)
     print("==================================================", flush=True)
-    print(classification_report(y_val, val_preds, target_names=selected_classes), flush=True)
+    print(classification_report(y_val, val_preds, labels=class_indices, target_names=selected_classes, zero_division=0), flush=True)
 
     # 6. Save Plots & Visualizations
     plot_training_curves(history, Path("outputs/logs/cnn_lstm_attention_training.png"))

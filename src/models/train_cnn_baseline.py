@@ -9,6 +9,7 @@ and persists trained model artifacts.
 import json
 from pathlib import Path
 import sys
+from typing import Dict, List, Optional
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import classification_report, confusion_matrix
@@ -66,36 +67,49 @@ def plot_training_curves(history: tf.keras.callbacks.History, output_path: Path)
 
 
 def plot_confusion_matrix(
-    cm: np.ndarray, class_names: list[str], output_path: Path
+    cm: np.ndarray, class_names: List[str], output_path: Path
 ) -> None:
     """Plot and save normalized confusion matrix."""
-    fig, ax = plt.subplots(figsize=(6, 5))
+    n_classes = len(class_names)
+    figsize = (6, 5) if n_classes <= 10 else (12, 10)
+    fig, ax = plt.subplots(figsize=figsize)
     im = ax.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
     ax.figure.colorbar(im, ax=ax)
 
-    ax.set(
-        xticks=np.arange(cm.shape[1]),
-        yticks=np.arange(cm.shape[0]),
-        xticklabels=class_names,
-        yticklabels=class_names,
-        title="Validation Confusion Matrix",
-        ylabel="Ground Truth Label",
-        xlabel="Predicted Label",
-    )
-    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+    if n_classes <= 15:
+        ax.set(
+            xticks=np.arange(cm.shape[1]),
+            yticks=np.arange(cm.shape[0]),
+            xticklabels=class_names,
+            yticklabels=class_names,
+            title="Validation Confusion Matrix",
+            ylabel="Ground Truth Label",
+            xlabel="Predicted Label",
+        )
+        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
 
-    # Annotate numbers in cells
-    thresh = cm.max() / 2.0
-    for i in range(cm.shape[0]):
-        for j in range(cm.shape[1]):
-            ax.text(
-                j,
-                i,
-                format(cm[i, j], "d"),
-                ha="center",
-                va="center",
-                color="white" if cm[i, j] > thresh else "black",
-            )
+        # Annotate numbers in cells
+        thresh = cm.max() / 2.0
+        for i in range(cm.shape[0]):
+            for j in range(cm.shape[1]):
+                ax.text(
+                    j,
+                    i,
+                    format(cm[i, j], "d"),
+                    ha="center",
+                    va="center",
+                    color="white" if cm[i, j] > thresh else "black",
+                )
+    else:
+        ax.set(
+            title=f"Validation Confusion Matrix ({n_classes} Classes)",
+            ylabel="Ground Truth Label Index",
+            xlabel="Predicted Label Index",
+        )
+        tick_step = max(1, n_classes // 10)
+        ticks = np.arange(0, n_classes, tick_step)
+        ax.set_xticks(ticks)
+        ax.set_yticks(ticks)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     plt.tight_layout()
@@ -122,7 +136,11 @@ def train_cnn_baseline(config_path: Path | str = "configs/default_config.yaml") 
 
     manifest_path = Path(config["paths"]["manifest_csv"])
     manifest_df = load_manifest(manifest_path)
-    selected_classes = sorted(config["dataset"]["selected_classes"])
+    cfg_classes = config["dataset"].get("selected_classes")
+    if isinstance(cfg_classes, list):
+        selected_classes = sorted(cfg_classes)
+    else:
+        selected_classes = sorted(manifest_df["class_name"].unique())
     num_classes = len(selected_classes)
 
     print("==================================================", flush=True)
@@ -132,7 +150,8 @@ def train_cnn_baseline(config_path: Path | str = "configs/default_config.yaml") 
     print(f"Epochs         : {epochs}", flush=True)
     print(f"Batch Size     : {batch_size}", flush=True)
     print(f"Learning Rate  : {lr}", flush=True)
-    print(f"Classes ({num_classes})   : {', '.join(selected_classes)}", flush=True)
+    class_str = ", ".join(selected_classes) if num_classes <= 5 else f"{num_classes} classes ({selected_classes[0]} ... {selected_classes[-1]})"
+    print(f"Classes ({num_classes})   : {class_str}", flush=True)
     print("--------------------------------------------------", flush=True)
 
 
@@ -150,11 +169,13 @@ def train_cnn_baseline(config_path: Path | str = "configs/default_config.yaml") 
 
     # 2. Extract or load cached features
     cache_dir = Path("outputs/cache")
+    max_train = config["dataset"].get("max_train_per_class", None)
+    max_val = config["dataset"].get("max_val_per_class", None)
     x_train, y_train = get_or_extract_split_features(
-        manifest_df, "train", extractor, cache_dir, seq_len, target_size, obs_ratio
+        manifest_df, "train", extractor, cache_dir, seq_len, target_size, obs_ratio, max_samples_per_class=max_train
     )
     x_val, y_val = get_or_extract_split_features(
-        manifest_df, "val", extractor, cache_dir, seq_len, target_size, obs_ratio
+        manifest_df, "val", extractor, cache_dir, seq_len, target_size, obs_ratio, max_samples_per_class=max_val
     )
 
     print(f"\nTraining Data   : Features {x_train.shape}, Labels {y_train.shape}")
@@ -201,15 +222,25 @@ def train_cnn_baseline(config_path: Path | str = "configs/default_config.yaml") 
     val_probs = head_model.predict(x_val, verbose=0)
     val_preds = np.argmax(val_probs, axis=1)
 
-    cm = confusion_matrix(y_val, val_preds)
+    class_indices = list(range(len(selected_classes)))
+    cm = confusion_matrix(y_val, val_preds, labels=class_indices)
     report = classification_report(
-        y_val, val_preds, target_names=selected_classes, output_dict=True
+        y_val,
+        val_preds,
+        labels=class_indices,
+        target_names=selected_classes,
+        output_dict=True,
+        zero_division=0,
     )
 
     print("\n==================================================")
     print(f"Validation Results: Loss = {val_loss:.4f}, Accuracy = {val_acc:.4f} ({val_acc*100:.2f}%)")
     print("==================================================")
-    print(classification_report(y_val, val_preds, target_names=selected_classes))
+    if num_classes <= 10:
+        print(classification_report(y_val, val_preds, labels=class_indices, target_names=selected_classes, zero_division=0))
+    else:
+        macro_f1 = report.get("macro avg", {}).get("f1-score", 0.0)
+        print(f"Validation Macro F1: {macro_f1:.4f} across {num_classes} classes")
 
     # 6. Save Plots & Logs
     plot_training_curves(history, Path("outputs/logs/cnn_baseline_training.png"))

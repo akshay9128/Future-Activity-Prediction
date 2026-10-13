@@ -22,7 +22,7 @@ def build_cnn_lstm_head(
     feature_dim: int = 1280,
     lstm_units: int = 64,
     dense_units: int = 64,
-    num_classes: int = 5,
+    num_classes: int = 101,
     dropout_rate: float = 0.3,
     recurrent_dropout: float = 0.0,
     return_sequences: bool = False,
@@ -35,7 +35,7 @@ def build_cnn_lstm_head(
         feature_dim: Dimension of input CNN features at each time step (1280).
         lstm_units: Hidden dimensionality of the LSTM cell.
         dense_units: Number of neurons in the intermediate projection layer.
-        num_classes: Number of output action categories (5).
+        num_classes: Number of output action categories (default 101 for full UCF-101).
         dropout_rate: Dropout rate for regularization.
         recurrent_dropout: Dropout applied to recurrent state transitions.
         return_sequences: If True, returns (B, T, lstm_units). If False, returns (B, num_classes).

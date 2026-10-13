@@ -25,7 +25,7 @@ def build_cnn_lstm_attention_head(
     lstm_units: int = 64,
     attention_units: int = 64,
     dense_units: int = 64,
-    num_classes: int = 5,
+    num_classes: int = 101,
     dropout_rate: float = 0.3,
     recurrent_dropout: float = 0.0,
 ) -> tf.keras.Model:
@@ -48,7 +48,7 @@ def build_cnn_lstm_attention_head(
         Dropout(rate=0.3)
            │
            ▼
-        Dense(5, activation='softmax') ─────────► (B, 5)
+        Dense(num_classes, activation='softmax') ──► (B, num_classes)
 
     Args:
         sequence_length: Number of time steps (16).
@@ -56,7 +56,7 @@ def build_cnn_lstm_attention_head(
         lstm_units: Hidden units for the recurrent LSTM layer.
         attention_units: Internal dimension for attention energy projection.
         dense_units: Units in classification projection layer.
-        num_classes: Number of activity categories (5).
+        num_classes: Number of activity categories (default 101 for full UCF-101).
         dropout_rate: Dropout rate for regularization.
         recurrent_dropout: Dropout for LSTM recurrent connections (0.0 for cuDNN speed).
 

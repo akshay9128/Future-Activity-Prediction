@@ -1,0 +1,66 @@
+{
+  "model_architecture": "CNN_LSTM",
+  "description": "Visual feature extraction via frozen MobileNetV2 + temporal modeling via single LSTM",
+  "task": "Early video activity classification (first 50% observed sequence)",
+  "dataset": "UCF-101",
+  "num_classes": 101,
+  "sequence_length": 16,
+  "observation_ratio": 0.5,
+  "backbone": "MobileNetV2 (ImageNet weights, frozen)",
+  "temporal_layer": "LSTM (64 units, recurrent dropout 0.3)",
+  "dense_head": "Dense (101 units, softmax activation)",
+  "parameter_count": 355045,
+  "model_size_mb": 4.1,
+  "validation_metrics": {
+    "val_loss": 1.4066520929336548,
+    "val_accuracy": 0.6765676736831665,
+    "val_accuracy_pct": 67.66,
+    "val_samples": 303,
+    "macro_avg_precision": 0.7028838598145529,
+    "macro_avg_recall": 0.6765676567656767,
+    "macro_avg_f1": 0.657791493435058
+  },
+  "held_out_test_metrics": {
+    "test_loss": 1.4993,
+    "test_accuracy": 0.6898,
+    "test_accuracy_pct": 68.98,
+    "top5_accuracy": 0.8251,
+    "top5_accuracy_pct": 82.51,
+    "test_samples": 303,
+    "inference_latency_ms": 2.78,
+    "generalization_gap_pct": -1.32
+  },
+  "artifacts_inventory": {
+    "checkpoints": [
+      "outputs/checkpoints/cnn_lstm_head.keras",
+      "outputs/checkpoints/cnn_lstm_end_to_end.keras",
+      "outputs/models/cnn_lstm_head.keras",
+      "outputs/models/cnn_lstm_end_to_end.keras"
+    ],
+    "visualizations": [
+      "outputs/plots/cnn_lstm_training_curves.png",
+      "outputs/plots/cnn_lstm_val_confusion_matrix.png",
+      "outputs/plots/cnn_lstm_test_confusion_matrix.png",
+      "outputs/plots/basketball_lstm_prediction.png",
+      "outputs/plots/biking_lstm_prediction.png"
+    ],
+    "predictions": [
+      "outputs/predictions/basketball_lstm_prediction.json",
+      "outputs/predictions/basketball_lstm_prediction.png",
+      "outputs/predictions/biking_lstm_prediction.json",
+      "outputs/predictions/biking_lstm_prediction.png"
+    ],
+    "reports": [
+      "outputs/reports/cnn_lstm_evaluation_report.json",
+      "outputs/reports/cnn_lstm_evaluation_report.md",
+      "outputs/reports/dataset_inspection_101.json",
+      "outputs/reports/dataset_split_summary_101.json"
+    ],
+    "mappings_and_metadata": [
+      "outputs/class_to_idx.json",
+      "outputs/idx_to_class.json",
+      "outputs/dataset_manifest.csv",
+      "configs/default_config.yaml"
+    ]
+  }
+}

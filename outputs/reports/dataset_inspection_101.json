@@ -1,0 +1,2442 @@
+{
+  "dataset_root": "D:\\datasets\\UCF-101",
+  "root_exists": true,
+  "total_classes_discovered": 101,
+  "total_classes_requested": 101,
+  "available_classes": [
+    "ApplyEyeMakeup",
+    "ApplyLipstick",
+    "Archery",
+    "BabyCrawling",
+    "BalanceBeam",
+    "BandMarching",
+    "BaseballPitch",
+    "Basketball",
+    "BasketballDunk",
+    "BenchPress",
+    "Biking",
+    "Billiards",
+    "BlowDryHair",
+    "BlowingCandles",
+    "BodyWeightSquats",
+    "Bowling",
+    "BoxingPunchingBag",
+    "BoxingSpeedBag",
+    "BreastStroke",
+    "BrushingTeeth",
+    "CleanAndJerk",
+    "CliffDiving",
+    "CricketBowling",
+    "CricketShot",
+    "CuttingInKitchen",
+    "Diving",
+    "Drumming",
+    "Fencing",
+    "FieldHockeyPenalty",
+    "FloorGymnastics",
+    "FrisbeeCatch",
+    "FrontCrawl",
+    "GolfSwing",
+    "Haircut",
+    "HammerThrow",
+    "Hammering",
+    "HandstandPushups",
+    "HandstandWalking",
+    "HeadMassage",
+    "HighJump",
+    "HorseRace",
+    "HorseRiding",
+    "HulaHoop",
+    "IceDancing",
+    "JavelinThrow",
+    "JugglingBalls",
+    "JumpRope",
+    "JumpingJack",
+    "Kayaking",
+    "Knitting",
+    "LongJump",
+    "Lunges",
+    "MilitaryParade",
+    "Mixing",
+    "MoppingFloor",
+    "Nunchucks",
+    "ParallelBars",
+    "PizzaTossing",
+    "PlayingCello",
+    "PlayingDaf",
+    "PlayingDhol",
+    "PlayingFlute",
+    "PlayingGuitar",
+    "PlayingPiano",
+    "PlayingSitar",
+    "PlayingTabla",
+    "PlayingViolin",
+    "PoleVault",
+    "PommelHorse",
+    "PullUps",
+    "Punch",
+    "PushUps",
+    "Rafting",
+    "RockClimbingIndoor",
+    "RopeClimbing",
+    "Rowing",
+    "SalsaSpin",
+    "ShavingBeard",
+    "Shotput",
+    "SkateBoarding",
+    "Skiing",
+    "Skijet",
+    "SkyDiving",
+    "SoccerJuggling",
+    "SoccerPenalty",
+    "StillRings",
+    "SumoWrestling",
+    "Surfing",
+    "Swing",
+    "TableTennisShot",
+    "TaiChi",
+    "TennisSwing",
+    "ThrowDiscus",
+    "TrampolineJumping",
+    "Typing",
+    "UnevenBars",
+    "VolleyballSpiking",
+    "WalkingWithDog",
+    "WallPushups",
+    "WritingOnBoard",
+    "YoYo"
+  ],
+  "missing_classes": [],
+  "empty_classes": [],
+  "class_video_counts": {
+    "ApplyEyeMakeup": 145,
+    "ApplyLipstick": 114,
+    "Archery": 145,
+    "BabyCrawling": 132,
+    "BalanceBeam": 108,
+    "BandMarching": 155,
+    "BaseballPitch": 150,
+    "Basketball": 134,
+    "BasketballDunk": 131,
+    "BenchPress": 160,
+    "Biking": 134,
+    "Billiards": 150,
+    "BlowDryHair": 131,
+    "BlowingCandles": 109,
+    "BodyWeightSquats": 112,
+    "Bowling": 155,
+    "BoxingPunchingBag": 163,
+    "BoxingSpeedBag": 134,
+    "BreastStroke": 101,
+    "BrushingTeeth": 131,
+    "CleanAndJerk": 112,
+    "CliffDiving": 138,
+    "CricketBowling": 139,
+    "CricketShot": 167,
+    "CuttingInKitchen": 110,
+    "Diving": 150,
+    "Drumming": 161,
+    "Fencing": 111,
+    "FieldHockeyPenalty": 126,
+    "FloorGymnastics": 125,
+    "FrisbeeCatch": 126,
+    "FrontCrawl": 137,
+    "GolfSwing": 139,
+    "Haircut": 130,
+    "HammerThrow": 150,
+    "Hammering": 140,
+    "HandstandPushups": 128,
+    "HandstandWalking": 111,
+    "HeadMassage": 147,
+    "HighJump": 123,
+    "HorseRace": 124,
+    "HorseRiding": 164,
+    "HulaHoop": 125,
+    "IceDancing": 158,
+    "JavelinThrow": 117,
+    "JugglingBalls": 121,
+    "JumpRope": 144,
+    "JumpingJack": 123,
+    "Kayaking": 141,
+    "Knitting": 123,
+    "LongJump": 131,
+    "Lunges": 127,
+    "MilitaryParade": 125,
+    "Mixing": 136,
+    "MoppingFloor": 110,
+    "Nunchucks": 132,
+    "ParallelBars": 114,
+    "PizzaTossing": 113,
+    "PlayingCello": 164,
+    "PlayingDaf": 151,
+    "PlayingDhol": 164,
+    "PlayingFlute": 155,
+    "PlayingGuitar": 160,
+    "PlayingPiano": 105,
+    "PlayingSitar": 157,
+    "PlayingTabla": 111,
+    "PlayingViolin": 100,
+    "PoleVault": 149,
+    "PommelHorse": 123,
+    "PullUps": 100,
+    "Punch": 160,
+    "PushUps": 102,
+    "Rafting": 111,
+    "RockClimbingIndoor": 144,
+    "RopeClimbing": 119,
+    "Rowing": 137,
+    "SalsaSpin": 133,
+    "ShavingBeard": 161,
+    "Shotput": 144,
+    "SkateBoarding": 120,
+    "Skiing": 135,
+    "Skijet": 100,
+    "SkyDiving": 110,
+    "SoccerJuggling": 147,
+    "SoccerPenalty": 137,
+    "StillRings": 112,
+    "SumoWrestling": 116,
+    "Surfing": 126,
+    "Swing": 131,
+    "TableTennisShot": 140,
+    "TaiChi": 100,
+    "TennisSwing": 166,
+    "ThrowDiscus": 130,
+    "TrampolineJumping": 119,
+    "Typing": 136,
+    "UnevenBars": 104,
+    "VolleyballSpiking": 116,
+    "WalkingWithDog": 123,
+    "WallPushups": 130,
+    "WritingOnBoard": 152,
+    "YoYo": 128
+  },
+  "total_videos_found": 13320,
+  "duplicate_video_paths": [],
+  "sample_inspections": {
+    "ApplyEyeMakeup": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ApplyEyeMakeup\\v_ApplyEyeMakeup_g01_c01.avi",
+        "filename": "v_ApplyEyeMakeup_g01_c01.avi",
+        "frame_count": 164,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ApplyEyeMakeup\\v_ApplyEyeMakeup_g01_c02.avi",
+        "filename": "v_ApplyEyeMakeup_g01_c02.avi",
+        "frame_count": 123,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "ApplyLipstick": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ApplyLipstick\\v_ApplyLipstick_g01_c01.avi",
+        "filename": "v_ApplyLipstick_g01_c01.avi",
+        "frame_count": 149,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ApplyLipstick\\v_ApplyLipstick_g01_c02.avi",
+        "filename": "v_ApplyLipstick_g01_c02.avi",
+        "frame_count": 160,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Archery": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Archery\\v_Archery_g01_c01.avi",
+        "filename": "v_Archery_g01_c01.avi",
+        "frame_count": 131,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Archery\\v_Archery_g01_c02.avi",
+        "filename": "v_Archery_g01_c02.avi",
+        "frame_count": 142,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BabyCrawling": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BabyCrawling\\v_BabyCrawling_g01_c01.avi",
+        "filename": "v_BabyCrawling_g01_c01.avi",
+        "frame_count": 165,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BabyCrawling\\v_BabyCrawling_g01_c02.avi",
+        "filename": "v_BabyCrawling_g01_c02.avi",
+        "frame_count": 165,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BalanceBeam": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BalanceBeam\\v_BalanceBeam_g01_c01.avi",
+        "filename": "v_BalanceBeam_g01_c01.avi",
+        "frame_count": 125,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BalanceBeam\\v_BalanceBeam_g01_c02.avi",
+        "filename": "v_BalanceBeam_g01_c02.avi",
+        "frame_count": 90,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BandMarching": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BandMarching\\v_BandMarching_g01_c01.avi",
+        "filename": "v_BandMarching_g01_c01.avi",
+        "frame_count": 160,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BandMarching\\v_BandMarching_g01_c02.avi",
+        "filename": "v_BandMarching_g01_c02.avi",
+        "frame_count": 162,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BaseballPitch": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BaseballPitch\\v_BaseballPitch_g01_c01.avi",
+        "filename": "v_BaseballPitch_g01_c01.avi",
+        "frame_count": 107,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BaseballPitch\\v_BaseballPitch_g01_c02.avi",
+        "filename": "v_BaseballPitch_g01_c02.avi",
+        "frame_count": 94,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Basketball": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Basketball\\v_Basketball_g01_c01.avi",
+        "filename": "v_Basketball_g01_c01.avi",
+        "frame_count": 141,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Basketball\\v_Basketball_g01_c02.avi",
+        "filename": "v_Basketball_g01_c02.avi",
+        "frame_count": 180,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BasketballDunk": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BasketballDunk\\v_BasketballDunk_g01_c01.avi",
+        "filename": "v_BasketballDunk_g01_c01.avi",
+        "frame_count": 61,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BasketballDunk\\v_BasketballDunk_g01_c02.avi",
+        "filename": "v_BasketballDunk_g01_c02.avi",
+        "frame_count": 65,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BenchPress": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BenchPress\\v_BenchPress_g01_c01.avi",
+        "filename": "v_BenchPress_g01_c01.avi",
+        "frame_count": 151,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BenchPress\\v_BenchPress_g01_c02.avi",
+        "filename": "v_BenchPress_g01_c02.avi",
+        "frame_count": 180,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Biking": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Biking\\v_Biking_g01_c01.avi",
+        "filename": "v_Biking_g01_c01.avi",
+        "frame_count": 151,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Biking\\v_Biking_g01_c02.avi",
+        "filename": "v_Biking_g01_c02.avi",
+        "frame_count": 151,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Billiards": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Billiards\\v_Billiards_g01_c01.avi",
+        "filename": "v_Billiards_g01_c01.avi",
+        "frame_count": 274,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Billiards\\v_Billiards_g01_c02.avi",
+        "filename": "v_Billiards_g01_c02.avi",
+        "frame_count": 383,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BlowDryHair": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BlowDryHair\\v_BlowDryHair_g01_c01.avi",
+        "filename": "v_BlowDryHair_g01_c01.avi",
+        "frame_count": 242,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BlowDryHair\\v_BlowDryHair_g01_c02.avi",
+        "filename": "v_BlowDryHair_g01_c02.avi",
+        "frame_count": 219,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BlowingCandles": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BlowingCandles\\v_BlowingCandles_g01_c01.avi",
+        "filename": "v_BlowingCandles_g01_c01.avi",
+        "frame_count": 60,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BlowingCandles\\v_BlowingCandles_g01_c02.avi",
+        "filename": "v_BlowingCandles_g01_c02.avi",
+        "frame_count": 75,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BodyWeightSquats": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BodyWeightSquats\\v_BodyWeightSquats_g01_c01.avi",
+        "filename": "v_BodyWeightSquats_g01_c01.avi",
+        "frame_count": 267,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BodyWeightSquats\\v_BodyWeightSquats_g01_c02.avi",
+        "filename": "v_BodyWeightSquats_g01_c02.avi",
+        "frame_count": 252,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Bowling": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Bowling\\v_Bowling_g01_c01.avi",
+        "filename": "v_Bowling_g01_c01.avi",
+        "frame_count": 159,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Bowling\\v_Bowling_g01_c02.avi",
+        "filename": "v_Bowling_g01_c02.avi",
+        "frame_count": 125,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BoxingPunchingBag": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BoxingPunchingBag\\v_BoxingPunchingBag_g01_c01.avi",
+        "filename": "v_BoxingPunchingBag_g01_c01.avi",
+        "frame_count": 129,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BoxingPunchingBag\\v_BoxingPunchingBag_g01_c02.avi",
+        "filename": "v_BoxingPunchingBag_g01_c02.avi",
+        "frame_count": 159,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BoxingSpeedBag": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BoxingSpeedBag\\v_BoxingSpeedBag_g01_c01.avi",
+        "filename": "v_BoxingSpeedBag_g01_c01.avi",
+        "frame_count": 131,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BoxingSpeedBag\\v_BoxingSpeedBag_g01_c02.avi",
+        "filename": "v_BoxingSpeedBag_g01_c02.avi",
+        "frame_count": 124,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BreastStroke": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BreastStroke\\v_BreastStroke_g01_c01.avi",
+        "filename": "v_BreastStroke_g01_c01.avi",
+        "frame_count": 96,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BreastStroke\\v_BreastStroke_g01_c02.avi",
+        "filename": "v_BreastStroke_g01_c02.avi",
+        "frame_count": 96,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "BrushingTeeth": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BrushingTeeth\\v_BrushingTeeth_g01_c01.avi",
+        "filename": "v_BrushingTeeth_g01_c01.avi",
+        "frame_count": 103,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\BrushingTeeth\\v_BrushingTeeth_g01_c02.avi",
+        "filename": "v_BrushingTeeth_g01_c02.avi",
+        "frame_count": 109,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "CleanAndJerk": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\CleanAndJerk\\v_CleanAndJerk_g01_c01.avi",
+        "filename": "v_CleanAndJerk_g01_c01.avi",
+        "frame_count": 100,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\CleanAndJerk\\v_CleanAndJerk_g01_c02.avi",
+        "filename": "v_CleanAndJerk_g01_c02.avi",
+        "frame_count": 113,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "CliffDiving": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\CliffDiving\\v_CliffDiving_g01_c01.avi",
+        "filename": "v_CliffDiving_g01_c01.avi",
+        "frame_count": 90,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\CliffDiving\\v_CliffDiving_g01_c02.avi",
+        "filename": "v_CliffDiving_g01_c02.avi",
+        "frame_count": 114,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "CricketBowling": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\CricketBowling\\v_CricketBowling_g01_c01.avi",
+        "filename": "v_CricketBowling_g01_c01.avi",
+        "frame_count": 69,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\CricketBowling\\v_CricketBowling_g01_c02.avi",
+        "filename": "v_CricketBowling_g01_c02.avi",
+        "frame_count": 61,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "CricketShot": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\CricketShot\\v_CricketShot_g01_c01.avi",
+        "filename": "v_CricketShot_g01_c01.avi",
+        "frame_count": 84,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\CricketShot\\v_CricketShot_g01_c02.avi",
+        "filename": "v_CricketShot_g01_c02.avi",
+        "frame_count": 91,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "CuttingInKitchen": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\CuttingInKitchen\\v_CuttingInKitchen_g01_c01.avi",
+        "filename": "v_CuttingInKitchen_g01_c01.avi",
+        "frame_count": 301,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\CuttingInKitchen\\v_CuttingInKitchen_g01_c02.avi",
+        "filename": "v_CuttingInKitchen_g01_c02.avi",
+        "frame_count": 105,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Diving": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Diving\\v_Diving_g01_c01.avi",
+        "filename": "v_Diving_g01_c01.avi",
+        "frame_count": 259,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Diving\\v_Diving_g01_c02.avi",
+        "filename": "v_Diving_g01_c02.avi",
+        "frame_count": 282,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Drumming": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Drumming\\v_Drumming_g01_c01.avi",
+        "filename": "v_Drumming_g01_c01.avi",
+        "frame_count": 300,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Drumming\\v_Drumming_g01_c02.avi",
+        "filename": "v_Drumming_g01_c02.avi",
+        "frame_count": 300,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Fencing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Fencing\\v_Fencing_g01_c01.avi",
+        "filename": "v_Fencing_g01_c01.avi",
+        "frame_count": 147,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Fencing\\v_Fencing_g01_c02.avi",
+        "filename": "v_Fencing_g01_c02.avi",
+        "frame_count": 161,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "FieldHockeyPenalty": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\FieldHockeyPenalty\\v_FieldHockeyPenalty_g01_c01.avi",
+        "filename": "v_FieldHockeyPenalty_g01_c01.avi",
+        "frame_count": 131,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\FieldHockeyPenalty\\v_FieldHockeyPenalty_g01_c02.avi",
+        "filename": "v_FieldHockeyPenalty_g01_c02.avi",
+        "frame_count": 180,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "FloorGymnastics": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\FloorGymnastics\\v_FloorGymnastics_g01_c01.avi",
+        "filename": "v_FloorGymnastics_g01_c01.avi",
+        "frame_count": 97,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\FloorGymnastics\\v_FloorGymnastics_g01_c02.avi",
+        "filename": "v_FloorGymnastics_g01_c02.avi",
+        "frame_count": 194,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "FrisbeeCatch": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\FrisbeeCatch\\v_FrisbeeCatch_g01_c01.avi",
+        "filename": "v_FrisbeeCatch_g01_c01.avi",
+        "frame_count": 103,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\FrisbeeCatch\\v_FrisbeeCatch_g01_c02.avi",
+        "filename": "v_FrisbeeCatch_g01_c02.avi",
+        "frame_count": 64,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "FrontCrawl": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\FrontCrawl\\v_FrontCrawl_g01_c01.avi",
+        "filename": "v_FrontCrawl_g01_c01.avi",
+        "frame_count": 138,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\FrontCrawl\\v_FrontCrawl_g01_c02.avi",
+        "filename": "v_FrontCrawl_g01_c02.avi",
+        "frame_count": 139,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "GolfSwing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\GolfSwing\\v_GolfSwing_g01_c01.avi",
+        "filename": "v_GolfSwing_g01_c01.avi",
+        "frame_count": 172,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\GolfSwing\\v_GolfSwing_g01_c02.avi",
+        "filename": "v_GolfSwing_g01_c02.avi",
+        "frame_count": 96,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Haircut": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Haircut\\v_Haircut_g01_c01.avi",
+        "filename": "v_Haircut_g01_c01.avi",
+        "frame_count": 135,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Haircut\\v_Haircut_g01_c02.avi",
+        "filename": "v_Haircut_g01_c02.avi",
+        "frame_count": 123,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "HammerThrow": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HammerThrow\\v_HammerThrow_g01_c01.avi",
+        "filename": "v_HammerThrow_g01_c01.avi",
+        "frame_count": 113,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HammerThrow\\v_HammerThrow_g01_c02.avi",
+        "filename": "v_HammerThrow_g01_c02.avi",
+        "frame_count": 247,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Hammering": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Hammering\\v_Hammering_g01_c01.avi",
+        "filename": "v_Hammering_g01_c01.avi",
+        "frame_count": 98,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Hammering\\v_Hammering_g01_c02.avi",
+        "filename": "v_Hammering_g01_c02.avi",
+        "frame_count": 143,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "HandstandPushups": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HandstandPushups\\v_HandStandPushups_g01_c01.avi",
+        "filename": "v_HandStandPushups_g01_c01.avi",
+        "frame_count": 78,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HandstandPushups\\v_HandStandPushups_g01_c02.avi",
+        "filename": "v_HandStandPushups_g01_c02.avi",
+        "frame_count": 93,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "HandstandWalking": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HandstandWalking\\v_HandstandWalking_g01_c01.avi",
+        "filename": "v_HandstandWalking_g01_c01.avi",
+        "frame_count": 109,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HandstandWalking\\v_HandstandWalking_g01_c02.avi",
+        "filename": "v_HandstandWalking_g01_c02.avi",
+        "frame_count": 104,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "HeadMassage": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HeadMassage\\v_HeadMassage_g01_c01.avi",
+        "filename": "v_HeadMassage_g01_c01.avi",
+        "frame_count": 154,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HeadMassage\\v_HeadMassage_g01_c02.avi",
+        "filename": "v_HeadMassage_g01_c02.avi",
+        "frame_count": 152,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "HighJump": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HighJump\\v_HighJump_g01_c01.avi",
+        "filename": "v_HighJump_g01_c01.avi",
+        "frame_count": 155,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HighJump\\v_HighJump_g01_c02.avi",
+        "filename": "v_HighJump_g01_c02.avi",
+        "frame_count": 154,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "HorseRace": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HorseRace\\v_HorseRace_g01_c01.avi",
+        "filename": "v_HorseRace_g01_c01.avi",
+        "frame_count": 192,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HorseRace\\v_HorseRace_g01_c02.avi",
+        "filename": "v_HorseRace_g01_c02.avi",
+        "frame_count": 153,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "HorseRiding": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HorseRiding\\v_HorseRiding_g01_c01.avi",
+        "filename": "v_HorseRiding_g01_c01.avi",
+        "frame_count": 239,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HorseRiding\\v_HorseRiding_g01_c02.avi",
+        "filename": "v_HorseRiding_g01_c02.avi",
+        "frame_count": 102,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "HulaHoop": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HulaHoop\\v_HulaHoop_g01_c01.avi",
+        "filename": "v_HulaHoop_g01_c01.avi",
+        "frame_count": 91,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\HulaHoop\\v_HulaHoop_g01_c02.avi",
+        "filename": "v_HulaHoop_g01_c02.avi",
+        "frame_count": 141,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "IceDancing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\IceDancing\\v_IceDancing_g01_c01.avi",
+        "filename": "v_IceDancing_g01_c01.avi",
+        "frame_count": 244,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\IceDancing\\v_IceDancing_g01_c02.avi",
+        "filename": "v_IceDancing_g01_c02.avi",
+        "frame_count": 251,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "JavelinThrow": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JavelinThrow\\v_JavelinThrow_g01_c01.avi",
+        "filename": "v_JavelinThrow_g01_c01.avi",
+        "frame_count": 120,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JavelinThrow\\v_JavelinThrow_g01_c02.avi",
+        "filename": "v_JavelinThrow_g01_c02.avi",
+        "frame_count": 144,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "JugglingBalls": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JugglingBalls\\v_JugglingBalls_g01_c01.avi",
+        "filename": "v_JugglingBalls_g01_c01.avi",
+        "frame_count": 257,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JugglingBalls\\v_JugglingBalls_g01_c02.avi",
+        "filename": "v_JugglingBalls_g01_c02.avi",
+        "frame_count": 248,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "JumpRope": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JumpRope\\v_JumpRope_g01_c01.avi",
+        "filename": "v_JumpRope_g01_c01.avi",
+        "frame_count": 257,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JumpRope\\v_JumpRope_g01_c02.avi",
+        "filename": "v_JumpRope_g01_c02.avi",
+        "frame_count": 268,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "JumpingJack": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JumpingJack\\v_JumpingJack_g01_c01.avi",
+        "filename": "v_JumpingJack_g01_c01.avi",
+        "frame_count": 93,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\JumpingJack\\v_JumpingJack_g01_c02.avi",
+        "filename": "v_JumpingJack_g01_c02.avi",
+        "frame_count": 91,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Kayaking": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Kayaking\\v_Kayaking_g01_c01.avi",
+        "filename": "v_Kayaking_g01_c01.avi",
+        "frame_count": 229,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Kayaking\\v_Kayaking_g01_c02.avi",
+        "filename": "v_Kayaking_g01_c02.avi",
+        "frame_count": 192,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Knitting": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Knitting\\v_Knitting_g01_c01.avi",
+        "filename": "v_Knitting_g01_c01.avi",
+        "frame_count": 266,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Knitting\\v_Knitting_g01_c02.avi",
+        "filename": "v_Knitting_g01_c02.avi",
+        "frame_count": 240,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "LongJump": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\LongJump\\v_LongJump_g01_c01.avi",
+        "filename": "v_LongJump_g01_c01.avi",
+        "frame_count": 143,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\LongJump\\v_LongJump_g01_c02.avi",
+        "filename": "v_LongJump_g01_c02.avi",
+        "frame_count": 178,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Lunges": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Lunges\\v_Lunges_g01_c01.avi",
+        "filename": "v_Lunges_g01_c01.avi",
+        "frame_count": 262,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Lunges\\v_Lunges_g01_c02.avi",
+        "filename": "v_Lunges_g01_c02.avi",
+        "frame_count": 235,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "MilitaryParade": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\MilitaryParade\\v_MilitaryParade_g01_c01.avi",
+        "filename": "v_MilitaryParade_g01_c01.avi",
+        "frame_count": 128,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\MilitaryParade\\v_MilitaryParade_g01_c02.avi",
+        "filename": "v_MilitaryParade_g01_c02.avi",
+        "frame_count": 127,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Mixing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Mixing\\v_Mixing_g01_c01.avi",
+        "filename": "v_Mixing_g01_c01.avi",
+        "frame_count": 105,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Mixing\\v_Mixing_g01_c02.avi",
+        "filename": "v_Mixing_g01_c02.avi",
+        "frame_count": 126,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "MoppingFloor": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\MoppingFloor\\v_MoppingFloor_g01_c01.avi",
+        "filename": "v_MoppingFloor_g01_c01.avi",
+        "frame_count": 160,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\MoppingFloor\\v_MoppingFloor_g01_c02.avi",
+        "filename": "v_MoppingFloor_g01_c02.avi",
+        "frame_count": 160,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Nunchucks": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Nunchucks\\v_Nunchucks_g01_c01.avi",
+        "filename": "v_Nunchucks_g01_c01.avi",
+        "frame_count": 265,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Nunchucks\\v_Nunchucks_g01_c02.avi",
+        "filename": "v_Nunchucks_g01_c02.avi",
+        "frame_count": 261,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "ParallelBars": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ParallelBars\\v_ParallelBars_g01_c01.avi",
+        "filename": "v_ParallelBars_g01_c01.avi",
+        "frame_count": 107,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ParallelBars\\v_ParallelBars_g01_c02.avi",
+        "filename": "v_ParallelBars_g01_c02.avi",
+        "frame_count": 124,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PizzaTossing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PizzaTossing\\v_PizzaTossing_g01_c01.avi",
+        "filename": "v_PizzaTossing_g01_c01.avi",
+        "frame_count": 144,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PizzaTossing\\v_PizzaTossing_g01_c02.avi",
+        "filename": "v_PizzaTossing_g01_c02.avi",
+        "frame_count": 83,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PlayingCello": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingCello\\v_PlayingCello_g01_c01.avi",
+        "filename": "v_PlayingCello_g01_c01.avi",
+        "frame_count": 223,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingCello\\v_PlayingCello_g01_c02.avi",
+        "filename": "v_PlayingCello_g01_c02.avi",
+        "frame_count": 211,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PlayingDaf": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingDaf\\v_PlayingDaf_g01_c01.avi",
+        "filename": "v_PlayingDaf_g01_c01.avi",
+        "frame_count": 122,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingDaf\\v_PlayingDaf_g01_c02.avi",
+        "filename": "v_PlayingDaf_g01_c02.avi",
+        "frame_count": 180,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PlayingDhol": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingDhol\\v_PlayingDhol_g01_c01.avi",
+        "filename": "v_PlayingDhol_g01_c01.avi",
+        "frame_count": 252,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingDhol\\v_PlayingDhol_g01_c02.avi",
+        "filename": "v_PlayingDhol_g01_c02.avi",
+        "frame_count": 240,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PlayingFlute": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingFlute\\v_PlayingFlute_g01_c01.avi",
+        "filename": "v_PlayingFlute_g01_c01.avi",
+        "frame_count": 253,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingFlute\\v_PlayingFlute_g01_c02.avi",
+        "filename": "v_PlayingFlute_g01_c02.avi",
+        "frame_count": 301,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PlayingGuitar": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingGuitar\\v_PlayingGuitar_g01_c01.avi",
+        "filename": "v_PlayingGuitar_g01_c01.avi",
+        "frame_count": 250,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingGuitar\\v_PlayingGuitar_g01_c02.avi",
+        "filename": "v_PlayingGuitar_g01_c02.avi",
+        "frame_count": 250,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PlayingPiano": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingPiano\\v_PlayingPiano_g01_c01.avi",
+        "filename": "v_PlayingPiano_g01_c01.avi",
+        "frame_count": 218,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingPiano\\v_PlayingPiano_g01_c02.avi",
+        "filename": "v_PlayingPiano_g01_c02.avi",
+        "frame_count": 221,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PlayingSitar": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingSitar\\v_PlayingSitar_g01_c01.avi",
+        "filename": "v_PlayingSitar_g01_c01.avi",
+        "frame_count": 103,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingSitar\\v_PlayingSitar_g01_c02.avi",
+        "filename": "v_PlayingSitar_g01_c02.avi",
+        "frame_count": 141,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PlayingTabla": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingTabla\\v_PlayingTabla_g01_c01.avi",
+        "filename": "v_PlayingTabla_g01_c01.avi",
+        "frame_count": 248,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingTabla\\v_PlayingTabla_g01_c02.avi",
+        "filename": "v_PlayingTabla_g01_c02.avi",
+        "frame_count": 251,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PlayingViolin": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingViolin\\v_PlayingViolin_g01_c01.avi",
+        "filename": "v_PlayingViolin_g01_c01.avi",
+        "frame_count": 186,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PlayingViolin\\v_PlayingViolin_g01_c02.avi",
+        "filename": "v_PlayingViolin_g01_c02.avi",
+        "frame_count": 169,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PoleVault": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PoleVault\\v_PoleVault_g01_c01.avi",
+        "filename": "v_PoleVault_g01_c01.avi",
+        "frame_count": 196,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PoleVault\\v_PoleVault_g01_c02.avi",
+        "filename": "v_PoleVault_g01_c02.avi",
+        "frame_count": 241,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PommelHorse": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PommelHorse\\v_PommelHorse_g01_c01.avi",
+        "filename": "v_PommelHorse_g01_c01.avi",
+        "frame_count": 396,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PommelHorse\\v_PommelHorse_g01_c02.avi",
+        "filename": "v_PommelHorse_g01_c02.avi",
+        "frame_count": 401,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PullUps": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PullUps\\v_PullUps_g01_c01.avi",
+        "filename": "v_PullUps_g01_c01.avi",
+        "frame_count": 167,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PullUps\\v_PullUps_g01_c02.avi",
+        "filename": "v_PullUps_g01_c02.avi",
+        "frame_count": 138,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Punch": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Punch\\v_Punch_g01_c01.avi",
+        "filename": "v_Punch_g01_c01.avi",
+        "frame_count": 121,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Punch\\v_Punch_g01_c02.avi",
+        "filename": "v_Punch_g01_c02.avi",
+        "frame_count": 133,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "PushUps": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PushUps\\v_PushUps_g01_c01.avi",
+        "filename": "v_PushUps_g01_c01.avi",
+        "frame_count": 56,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\PushUps\\v_PushUps_g01_c02.avi",
+        "filename": "v_PushUps_g01_c02.avi",
+        "frame_count": 53,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Rafting": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Rafting\\v_Rafting_g01_c01.avi",
+        "filename": "v_Rafting_g01_c01.avi",
+        "frame_count": 233,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Rafting\\v_Rafting_g01_c02.avi",
+        "filename": "v_Rafting_g01_c02.avi",
+        "frame_count": 213,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "RockClimbingIndoor": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\RockClimbingIndoor\\v_RockClimbingIndoor_g01_c01.avi",
+        "filename": "v_RockClimbingIndoor_g01_c01.avi",
+        "frame_count": 529,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\RockClimbingIndoor\\v_RockClimbingIndoor_g01_c02.avi",
+        "filename": "v_RockClimbingIndoor_g01_c02.avi",
+        "frame_count": 535,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "RopeClimbing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\RopeClimbing\\v_RopeClimbing_g01_c01.avi",
+        "filename": "v_RopeClimbing_g01_c01.avi",
+        "frame_count": 161,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\RopeClimbing\\v_RopeClimbing_g01_c02.avi",
+        "filename": "v_RopeClimbing_g01_c02.avi",
+        "frame_count": 170,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Rowing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Rowing\\v_Rowing_g01_c01.avi",
+        "filename": "v_Rowing_g01_c01.avi",
+        "frame_count": 353,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Rowing\\v_Rowing_g01_c02.avi",
+        "filename": "v_Rowing_g01_c02.avi",
+        "frame_count": 301,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "SalsaSpin": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SalsaSpin\\v_SalsaSpin_g01_c01.avi",
+        "filename": "v_SalsaSpin_g01_c01.avi",
+        "frame_count": 167,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SalsaSpin\\v_SalsaSpin_g01_c02.avi",
+        "filename": "v_SalsaSpin_g01_c02.avi",
+        "frame_count": 167,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "ShavingBeard": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ShavingBeard\\v_ShavingBeard_g01_c01.avi",
+        "filename": "v_ShavingBeard_g01_c01.avi",
+        "frame_count": 127,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ShavingBeard\\v_ShavingBeard_g01_c02.avi",
+        "filename": "v_ShavingBeard_g01_c02.avi",
+        "frame_count": 137,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Shotput": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Shotput\\v_Shotput_g01_c01.avi",
+        "filename": "v_Shotput_g01_c01.avi",
+        "frame_count": 61,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Shotput\\v_Shotput_g01_c02.avi",
+        "filename": "v_Shotput_g01_c02.avi",
+        "frame_count": 101,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "SkateBoarding": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SkateBoarding\\v_SkateBoarding_g01_c01.avi",
+        "filename": "v_SkateBoarding_g01_c01.avi",
+        "frame_count": 202,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SkateBoarding\\v_SkateBoarding_g01_c02.avi",
+        "filename": "v_SkateBoarding_g01_c02.avi",
+        "frame_count": 175,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Skiing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Skiing\\v_Skiing_g01_c01.avi",
+        "filename": "v_Skiing_g01_c01.avi",
+        "frame_count": 240,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Skiing\\v_Skiing_g01_c02.avi",
+        "filename": "v_Skiing_g01_c02.avi",
+        "frame_count": 244,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Skijet": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Skijet\\v_Skijet_g01_c01.avi",
+        "filename": "v_Skijet_g01_c01.avi",
+        "frame_count": 418,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Skijet\\v_Skijet_g01_c02.avi",
+        "filename": "v_Skijet_g01_c02.avi",
+        "frame_count": 416,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "SkyDiving": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SkyDiving\\v_SkyDiving_g01_c01.avi",
+        "filename": "v_SkyDiving_g01_c01.avi",
+        "frame_count": 187,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SkyDiving\\v_SkyDiving_g01_c02.avi",
+        "filename": "v_SkyDiving_g01_c02.avi",
+        "frame_count": 194,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "SoccerJuggling": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SoccerJuggling\\v_SoccerJuggling_g01_c01.avi",
+        "filename": "v_SoccerJuggling_g01_c01.avi",
+        "frame_count": 900,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SoccerJuggling\\v_SoccerJuggling_g01_c02.avi",
+        "filename": "v_SoccerJuggling_g01_c02.avi",
+        "frame_count": 502,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "SoccerPenalty": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SoccerPenalty\\v_SoccerPenalty_g01_c01.avi",
+        "filename": "v_SoccerPenalty_g01_c01.avi",
+        "frame_count": 153,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SoccerPenalty\\v_SoccerPenalty_g01_c02.avi",
+        "filename": "v_SoccerPenalty_g01_c02.avi",
+        "frame_count": 138,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "StillRings": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\StillRings\\v_StillRings_g01_c01.avi",
+        "filename": "v_StillRings_g01_c01.avi",
+        "frame_count": 125,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\StillRings\\v_StillRings_g01_c02.avi",
+        "filename": "v_StillRings_g01_c02.avi",
+        "frame_count": 207,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "SumoWrestling": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SumoWrestling\\v_SumoWrestling_g01_c01.avi",
+        "filename": "v_SumoWrestling_g01_c01.avi",
+        "frame_count": 241,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\SumoWrestling\\v_SumoWrestling_g01_c02.avi",
+        "filename": "v_SumoWrestling_g01_c02.avi",
+        "frame_count": 155,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Surfing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Surfing\\v_Surfing_g01_c01.avi",
+        "filename": "v_Surfing_g01_c01.avi",
+        "frame_count": 254,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Surfing\\v_Surfing_g01_c02.avi",
+        "filename": "v_Surfing_g01_c02.avi",
+        "frame_count": 203,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Swing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Swing\\v_Swing_g01_c01.avi",
+        "filename": "v_Swing_g01_c01.avi",
+        "frame_count": 168,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Swing\\v_Swing_g01_c02.avi",
+        "filename": "v_Swing_g01_c02.avi",
+        "frame_count": 168,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "TableTennisShot": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\TableTennisShot\\v_TableTennisShot_g01_c01.avi",
+        "filename": "v_TableTennisShot_g01_c01.avi",
+        "frame_count": 157,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\TableTennisShot\\v_TableTennisShot_g01_c02.avi",
+        "filename": "v_TableTennisShot_g01_c02.avi",
+        "frame_count": 169,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "TaiChi": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\TaiChi\\v_TaiChi_g01_c01.avi",
+        "filename": "v_TaiChi_g01_c01.avi",
+        "frame_count": 168,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\TaiChi\\v_TaiChi_g01_c02.avi",
+        "filename": "v_TaiChi_g01_c02.avi",
+        "frame_count": 168,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "TennisSwing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\TennisSwing\\v_TennisSwing_g01_c01.avi",
+        "filename": "v_TennisSwing_g01_c01.avi",
+        "frame_count": 77,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\TennisSwing\\v_TennisSwing_g01_c02.avi",
+        "filename": "v_TennisSwing_g01_c02.avi",
+        "frame_count": 85,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "ThrowDiscus": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ThrowDiscus\\v_ThrowDiscus_g01_c01.avi",
+        "filename": "v_ThrowDiscus_g01_c01.avi",
+        "frame_count": 66,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\ThrowDiscus\\v_ThrowDiscus_g01_c02.avi",
+        "filename": "v_ThrowDiscus_g01_c02.avi",
+        "frame_count": 94,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "TrampolineJumping": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\TrampolineJumping\\v_TrampolineJumping_g01_c01.avi",
+        "filename": "v_TrampolineJumping_g01_c01.avi",
+        "frame_count": 240,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\TrampolineJumping\\v_TrampolineJumping_g01_c02.avi",
+        "filename": "v_TrampolineJumping_g01_c02.avi",
+        "frame_count": 240,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "Typing": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Typing\\v_Typing_g01_c01.avi",
+        "filename": "v_Typing_g01_c01.avi",
+        "frame_count": 127,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\Typing\\v_Typing_g01_c02.avi",
+        "filename": "v_Typing_g01_c02.avi",
+        "frame_count": 121,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "UnevenBars": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\UnevenBars\\v_UnevenBars_g01_c01.avi",
+        "filename": "v_UnevenBars_g01_c01.avi",
+        "frame_count": 161,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\UnevenBars\\v_UnevenBars_g01_c02.avi",
+        "filename": "v_UnevenBars_g01_c02.avi",
+        "frame_count": 160,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "VolleyballSpiking": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\VolleyballSpiking\\v_VolleyballSpiking_g01_c01.avi",
+        "filename": "v_VolleyballSpiking_g01_c01.avi",
+        "frame_count": 93,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\VolleyballSpiking\\v_VolleyballSpiking_g01_c02.avi",
+        "filename": "v_VolleyballSpiking_g01_c02.avi",
+        "frame_count": 210,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "WalkingWithDog": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\WalkingWithDog\\v_WalkingWithDog_g01_c01.avi",
+        "filename": "v_WalkingWithDog_g01_c01.avi",
+        "frame_count": 240,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\WalkingWithDog\\v_WalkingWithDog_g01_c02.avi",
+        "filename": "v_WalkingWithDog_g01_c02.avi",
+        "frame_count": 240,
+        "fps": 29.97,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "WallPushups": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\WallPushups\\v_WallPushups_g01_c01.avi",
+        "filename": "v_WallPushups_g01_c01.avi",
+        "frame_count": 89,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\WallPushups\\v_WallPushups_g01_c02.avi",
+        "filename": "v_WallPushups_g01_c02.avi",
+        "frame_count": 124,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "WritingOnBoard": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\WritingOnBoard\\v_WritingOnBoard_g01_c01.avi",
+        "filename": "v_WritingOnBoard_g01_c01.avi",
+        "frame_count": 153,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\WritingOnBoard\\v_WritingOnBoard_g01_c02.avi",
+        "filename": "v_WritingOnBoard_g01_c02.avi",
+        "frame_count": 117,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ],
+    "YoYo": [
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\YoYo\\v_YoYo_g01_c01.avi",
+        "filename": "v_YoYo_g01_c01.avi",
+        "frame_count": 187,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      },
+      {
+        "valid": true,
+        "path": "D:\\datasets\\UCF-101\\YoYo\\v_YoYo_g01_c02.avi",
+        "filename": "v_YoYo_g01_c02.avi",
+        "frame_count": 184,
+        "fps": 25.0,
+        "width": 320,
+        "height": 240,
+        "error": null
+      }
+    ]
+  },
+  "unreadable_samples": [],
+  "all_classes_valid": true
+}

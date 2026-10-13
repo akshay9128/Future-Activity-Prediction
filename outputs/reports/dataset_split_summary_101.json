@@ -1,0 +1,521 @@
+{
+  "total_videos": 13320,
+  "total_classes": 101,
+  "split_counts": {
+    "train": 9324,
+    "test": 1998,
+    "val": 1998
+  },
+  "split_percentages": {
+    "train": 70.0,
+    "test": 15.0,
+    "val": 15.0
+  },
+  "per_class_splits": {
+    "ApplyEyeMakeup": {
+      "train": 101,
+      "test": 22,
+      "val": 22
+    },
+    "ApplyLipstick": {
+      "train": 80,
+      "val": 17,
+      "test": 17
+    },
+    "Archery": {
+      "train": 102,
+      "test": 22,
+      "val": 21
+    },
+    "BabyCrawling": {
+      "train": 92,
+      "test": 20,
+      "val": 20
+    },
+    "BalanceBeam": {
+      "train": 76,
+      "val": 16,
+      "test": 16
+    },
+    "BandMarching": {
+      "train": 108,
+      "test": 24,
+      "val": 23
+    },
+    "BaseballPitch": {
+      "train": 105,
+      "test": 23,
+      "val": 22
+    },
+    "Basketball": {
+      "train": 94,
+      "test": 20,
+      "val": 20
+    },
+    "BasketballDunk": {
+      "train": 92,
+      "val": 20,
+      "test": 19
+    },
+    "BenchPress": {
+      "train": 112,
+      "val": 24,
+      "test": 24
+    },
+    "Biking": {
+      "train": 94,
+      "test": 20,
+      "val": 20
+    },
+    "Billiards": {
+      "train": 105,
+      "val": 23,
+      "test": 22
+    },
+    "BlowDryHair": {
+      "train": 92,
+      "val": 20,
+      "test": 19
+    },
+    "BlowingCandles": {
+      "train": 76,
+      "val": 17,
+      "test": 16
+    },
+    "BodyWeightSquats": {
+      "train": 78,
+      "test": 17,
+      "val": 17
+    },
+    "Bowling": {
+      "train": 108,
+      "test": 24,
+      "val": 23
+    },
+    "BoxingPunchingBag": {
+      "train": 114,
+      "val": 25,
+      "test": 24
+    },
+    "BoxingSpeedBag": {
+      "train": 94,
+      "val": 20,
+      "test": 20
+    },
+    "BreastStroke": {
+      "train": 71,
+      "val": 15,
+      "test": 15
+    },
+    "BrushingTeeth": {
+      "train": 92,
+      "val": 20,
+      "test": 19
+    },
+    "CleanAndJerk": {
+      "train": 78,
+      "val": 17,
+      "test": 17
+    },
+    "CliffDiving": {
+      "train": 97,
+      "test": 21,
+      "val": 20
+    },
+    "CricketBowling": {
+      "train": 97,
+      "val": 21,
+      "test": 21
+    },
+    "CricketShot": {
+      "train": 117,
+      "val": 25,
+      "test": 25
+    },
+    "CuttingInKitchen": {
+      "train": 77,
+      "test": 17,
+      "val": 16
+    },
+    "Diving": {
+      "train": 105,
+      "val": 23,
+      "test": 22
+    },
+    "Drumming": {
+      "train": 113,
+      "test": 24,
+      "val": 24
+    },
+    "Fencing": {
+      "train": 78,
+      "val": 17,
+      "test": 16
+    },
+    "FieldHockeyPenalty": {
+      "train": 88,
+      "val": 19,
+      "test": 19
+    },
+    "FloorGymnastics": {
+      "train": 87,
+      "val": 19,
+      "test": 19
+    },
+    "FrisbeeCatch": {
+      "train": 88,
+      "test": 19,
+      "val": 19
+    },
+    "FrontCrawl": {
+      "train": 96,
+      "test": 21,
+      "val": 20
+    },
+    "GolfSwing": {
+      "train": 97,
+      "test": 21,
+      "val": 21
+    },
+    "Haircut": {
+      "train": 91,
+      "val": 20,
+      "test": 19
+    },
+    "HammerThrow": {
+      "train": 105,
+      "val": 23,
+      "test": 22
+    },
+    "Hammering": {
+      "train": 98,
+      "test": 21,
+      "val": 21
+    },
+    "HandstandPushups": {
+      "train": 90,
+      "val": 19,
+      "test": 19
+    },
+    "HandstandWalking": {
+      "train": 78,
+      "val": 17,
+      "test": 16
+    },
+    "HeadMassage": {
+      "train": 103,
+      "val": 22,
+      "test": 22
+    },
+    "HighJump": {
+      "train": 86,
+      "test": 19,
+      "val": 18
+    },
+    "HorseRace": {
+      "train": 87,
+      "val": 19,
+      "test": 18
+    },
+    "HorseRiding": {
+      "train": 115,
+      "test": 25,
+      "val": 24
+    },
+    "HulaHoop": {
+      "train": 88,
+      "test": 19,
+      "val": 18
+    },
+    "IceDancing": {
+      "train": 111,
+      "test": 24,
+      "val": 23
+    },
+    "JavelinThrow": {
+      "train": 82,
+      "test": 18,
+      "val": 17
+    },
+    "JugglingBalls": {
+      "train": 85,
+      "val": 18,
+      "test": 18
+    },
+    "JumpRope": {
+      "train": 101,
+      "val": 22,
+      "test": 21
+    },
+    "JumpingJack": {
+      "train": 86,
+      "val": 19,
+      "test": 18
+    },
+    "Kayaking": {
+      "train": 99,
+      "test": 21,
+      "val": 21
+    },
+    "Knitting": {
+      "train": 86,
+      "val": 19,
+      "test": 18
+    },
+    "LongJump": {
+      "train": 92,
+      "test": 20,
+      "val": 19
+    },
+    "Lunges": {
+      "train": 89,
+      "val": 19,
+      "test": 19
+    },
+    "MilitaryParade": {
+      "train": 87,
+      "test": 19,
+      "val": 19
+    },
+    "Mixing": {
+      "train": 95,
+      "test": 21,
+      "val": 20
+    },
+    "MoppingFloor": {
+      "train": 77,
+      "test": 17,
+      "val": 16
+    },
+    "Nunchucks": {
+      "train": 92,
+      "val": 20,
+      "test": 20
+    },
+    "ParallelBars": {
+      "train": 80,
+      "test": 17,
+      "val": 17
+    },
+    "PizzaTossing": {
+      "train": 79,
+      "val": 17,
+      "test": 17
+    },
+    "PlayingCello": {
+      "train": 115,
+      "val": 25,
+      "test": 24
+    },
+    "PlayingDaf": {
+      "train": 106,
+      "test": 23,
+      "val": 22
+    },
+    "PlayingDhol": {
+      "train": 115,
+      "val": 25,
+      "test": 24
+    },
+    "PlayingFlute": {
+      "train": 108,
+      "val": 24,
+      "test": 23
+    },
+    "PlayingGuitar": {
+      "train": 112,
+      "val": 24,
+      "test": 24
+    },
+    "PlayingPiano": {
+      "train": 73,
+      "test": 16,
+      "val": 16
+    },
+    "PlayingSitar": {
+      "train": 110,
+      "val": 24,
+      "test": 23
+    },
+    "PlayingTabla": {
+      "train": 78,
+      "test": 17,
+      "val": 16
+    },
+    "PlayingViolin": {
+      "train": 70,
+      "val": 15,
+      "test": 15
+    },
+    "PoleVault": {
+      "train": 104,
+      "val": 23,
+      "test": 22
+    },
+    "PommelHorse": {
+      "train": 86,
+      "val": 19,
+      "test": 18
+    },
+    "PullUps": {
+      "train": 70,
+      "val": 15,
+      "test": 15
+    },
+    "Punch": {
+      "train": 112,
+      "val": 24,
+      "test": 24
+    },
+    "PushUps": {
+      "train": 71,
+      "test": 16,
+      "val": 15
+    },
+    "Rafting": {
+      "train": 78,
+      "test": 17,
+      "val": 16
+    },
+    "RockClimbingIndoor": {
+      "train": 101,
+      "test": 22,
+      "val": 21
+    },
+    "RopeClimbing": {
+      "train": 83,
+      "test": 18,
+      "val": 18
+    },
+    "Rowing": {
+      "train": 96,
+      "test": 21,
+      "val": 20
+    },
+    "SalsaSpin": {
+      "train": 93,
+      "test": 20,
+      "val": 20
+    },
+    "ShavingBeard": {
+      "train": 113,
+      "val": 24,
+      "test": 24
+    },
+    "Shotput": {
+      "train": 101,
+      "test": 22,
+      "val": 21
+    },
+    "SkateBoarding": {
+      "train": 84,
+      "test": 18,
+      "val": 18
+    },
+    "Skiing": {
+      "train": 94,
+      "test": 21,
+      "val": 20
+    },
+    "Skijet": {
+      "train": 70,
+      "val": 15,
+      "test": 15
+    },
+    "SkyDiving": {
+      "train": 77,
+      "val": 17,
+      "test": 16
+    },
+    "SoccerJuggling": {
+      "train": 103,
+      "val": 22,
+      "test": 22
+    },
+    "SoccerPenalty": {
+      "train": 96,
+      "val": 21,
+      "test": 20
+    },
+    "StillRings": {
+      "train": 78,
+      "test": 17,
+      "val": 17
+    },
+    "SumoWrestling": {
+      "train": 81,
+      "test": 18,
+      "val": 17
+    },
+    "Surfing": {
+      "train": 88,
+      "test": 19,
+      "val": 19
+    },
+    "Swing": {
+      "train": 92,
+      "test": 20,
+      "val": 19
+    },
+    "TableTennisShot": {
+      "train": 98,
+      "test": 21,
+      "val": 21
+    },
+    "TaiChi": {
+      "train": 70,
+      "test": 15,
+      "val": 15
+    },
+    "TennisSwing": {
+      "train": 116,
+      "val": 25,
+      "test": 25
+    },
+    "ThrowDiscus": {
+      "train": 91,
+      "val": 20,
+      "test": 19
+    },
+    "TrampolineJumping": {
+      "train": 83,
+      "val": 18,
+      "test": 18
+    },
+    "Typing": {
+      "train": 95,
+      "val": 21,
+      "test": 20
+    },
+    "UnevenBars": {
+      "train": 73,
+      "val": 16,
+      "test": 15
+    },
+    "VolleyballSpiking": {
+      "train": 81,
+      "test": 18,
+      "val": 17
+    },
+    "WalkingWithDog": {
+      "train": 86,
+      "val": 19,
+      "test": 18
+    },
+    "WallPushups": {
+      "train": 91,
+      "test": 20,
+      "val": 19
+    },
+    "WritingOnBoard": {
+      "train": 106,
+      "val": 23,
+      "test": 23
+    },
+    "YoYo": {
+      "train": 90,
+      "val": 19,
+      "test": 19
+    }
+  }
+}

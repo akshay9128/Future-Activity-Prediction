@@ -33,6 +33,18 @@ def test_cnn_baseline_head_output_shape():
     assert np.all(output.numpy() >= 0.0), "Probabilities must be non-negative"
 
 
+def test_cnn_baseline_head_output_shape_101():
+    """Verify that head model takes (B, 16, 1280) and outputs (B, 101)."""
+    model = build_cnn_baseline_head(sequence_length=16, feature_dim=1280, num_classes=101)
+    dummy_input = np.random.uniform(-1.0, 1.0, size=(4, 16, 1280)).astype(np.float32)
+    output = model(dummy_input, training=False)
+
+    assert output.shape == (4, 101), f"Expected shape (4, 101), got {output.shape}"
+    prob_sums = np.sum(output.numpy(), axis=1)
+    np.testing.assert_allclose(prob_sums, 1.0, rtol=1e-5)
+    assert np.all(output.numpy() >= 0.0), "Probabilities must be non-negative"
+
+
 def test_cnn_baseline_training_step():
     """Verify that model trains for 2 epochs on synthetic data and loss remains finite."""
     model = build_cnn_baseline_head(sequence_length=16, feature_dim=1280, num_classes=5)
@@ -65,7 +77,7 @@ def test_saved_model_reload_and_reproducibility():
     pred2 = reloaded_model.predict(dummy_input, verbose=0)
 
     np.testing.assert_allclose(pred1, pred2, atol=1e-6)
-    assert pred1.shape == (2, 5)
+    assert pred1.shape in ((2, 5), (2, 101))
 
 
 def test_saved_artifacts_exist():
@@ -93,7 +105,7 @@ def test_end_to_end_model_prediction():
     raw_video = np.random.uniform(-1.0, 1.0, size=(1, 16, 224, 224, 3)).astype(np.float32)
     probs = e2e_model.predict(raw_video, verbose=0)
 
-    assert probs.shape == (1, 5)
+    assert probs.shape in ((1, 5), (1, 101))
     np.testing.assert_allclose(np.sum(probs), 1.0, rtol=1e-4)
 
 

@@ -176,6 +176,24 @@ def test_attention_extraction_model():
     )
 
 
+def test_cnn_lstm_attention_head_output_shape_101():
+    """Verify that the CNN + LSTM + Attention head maps (B, 16, 1280) to (B, 101)."""
+    model = build_cnn_lstm_attention_head(
+        sequence_length=16,
+        feature_dim=1280,
+        lstm_units=32,
+        attention_units=32,
+        num_classes=101,
+    )
+    dummy_input = tf.random.normal((4, 16, 1280))
+    output = model(dummy_input, training=False)
+
+    assert output.shape == (4, 101), f"Expected shape (4, 101), got {output.shape}"
+    prob_sums = np.sum(output.numpy(), axis=1)
+    np.testing.assert_allclose(prob_sums, 1.0, rtol=1e-5)
+    assert np.all(output.numpy() >= 0.0), "Probabilities must be non-negative"
+
+
 def test_saved_artifacts_exist():
     """Verify that training artifacts, models, and visualization plots exist on disk."""
     artifacts = [
@@ -201,5 +219,5 @@ def test_end_to_end_cnn_lstm_attention_prediction():
     dummy_video = tf.random.uniform((1, 16, 224, 224, 3), minval=-1.0, maxval=1.0)
     preds = e2e_model(dummy_video, training=False)
 
-    assert preds.shape == (1, 5), f"Expected end-to-end prediction shape (1, 5), got {preds.shape}"
+    assert preds.shape in ((1, 5), (1, 101)), f"Expected end-to-end prediction shape (1, 5) or (1, 101), got {preds.shape}"
     assert np.isclose(np.sum(preds.numpy()), 1.0, atol=1e-4), "Predictions must sum to 1.0"

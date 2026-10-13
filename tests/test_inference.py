@@ -15,10 +15,14 @@ SAMPLE_VIDEO_PATH = Path("D:/datasets/UCF-101/Basketball/v_Basketball_g01_c01.av
 
 
 def test_activity_predictor_initialization():
-    """Verify initialization of ActivityPredictor for all supported architectures."""
+    """Verify initialization of ActivityPredictor for CNN + LSTM architecture."""
+    predictor_default = ActivityPredictor()
+    assert predictor_default.model_type == "cnn_lstm"
+    assert len(predictor_default.classes) in (5, 101)
+
     predictor_attn = ActivityPredictor(model_type="cnn_lstm_attention")
     assert predictor_attn.model_type == "cnn_lstm_attention"
-    assert len(predictor_attn.classes) == 5
+    assert len(predictor_attn.classes) in (5, 101)
     assert predictor_attn.attention_extractor is not None
 
     predictor_lstm = ActivityPredictor(model_type="cnn_lstm")
@@ -30,6 +34,32 @@ def test_activity_predictor_initialization():
 
     with pytest.raises(ValueError, match="Unsupported model_type"):
         ActivityPredictor(model_type="unsupported_architecture")
+
+
+def test_missing_checkpoint_raises_file_not_found():
+    """Verify that missing model weights raise FileNotFoundError with a clear message."""
+    with pytest.raises(FileNotFoundError, match="Model weights not found"):
+        ActivityPredictor(model_type="cnn_lstm", model_path="outputs/models/nonexistent_weights.keras")
+
+
+def test_predict_top5_and_latency_schema():
+    """Verify top-5 predictions and latency schema on single video using CNN + LSTM."""
+    assert SAMPLE_VIDEO_PATH.exists()
+    predictor = ActivityPredictor(model_type="cnn_lstm")
+    result = predictor.predict_video(SAMPLE_VIDEO_PATH)
+
+    assert "top_5_predictions" in result
+    assert len(result["top_5_predictions"]) == min(5, len(predictor.classes))
+    for p in result["top_5_predictions"]:
+        assert "rank" in p
+        assert "class_name" in p
+        assert "confidence" in p
+        assert "confidence_pct" in p
+        assert 0.0 <= p["confidence"] <= 1.0
+
+    assert "inference_time_ms" in result
+    assert result["inference_time_ms"] > 0.0
+    assert result["dataset_source"] == "held_out_test_set"
 
 
 def test_predict_single_video_output_schema():
@@ -46,7 +76,7 @@ def test_predict_single_video_output_schema():
 
     # Check probabilities
     class_probs = result["class_probabilities"]
-    assert len(class_probs) == 5
+    assert len(class_probs) in (5, 101)
     prob_sum = sum(class_probs.values())
     assert np.isclose(prob_sum, 1.0, atol=1e-2), f"Probabilities do not sum to 1.0: {prob_sum}"
 

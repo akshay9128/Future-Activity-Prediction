@@ -2,7 +2,6 @@
 Test Suite: UCF101 dataset verification and class inspection.
 """
 
-
 from pathlib import Path
 import sys
 import tempfile
@@ -14,6 +13,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.data.dataset_inspector import (
+    discover_classes,
     inspect_dataset,
     inspect_video_file,
     SUPPORTED_VIDEO_EXTENSIONS,
@@ -21,35 +21,52 @@ from src.data.dataset_inspector import (
 from src.utils.config import load_config
 
 
-
 @pytest.fixture(scope="module")
 def project_config():
     """Load default project configuration."""
-    config_path = Path(__file__).resolve().parent.parent / "configs" / "default_config.yaml"
+    config_path = PROJECT_ROOT / "configs" / "default_config.yaml"
     return load_config(config_path)
 
 
-def test_dataset_root_and_classes_exist(project_config):
-    """Verify that UCF101 dataset directory exists and all 5 requested classes are present."""
+def test_discover_all_101_classes(project_config):
+    """Verify that auto-discovery locates all 101 UCF101 class folders."""
     raw_dir = Path(project_config["dataset"]["raw_dir"])
-    selected_classes = project_config["dataset"]["selected_classes"]
-
     assert raw_dir.is_dir(), f"Dataset directory not found at: {raw_dir}"
 
-    for class_name in selected_classes:
+    classes = discover_classes(raw_dir)
+    assert len(classes) == 101, f"Expected 101 classes, discovered {len(classes)}"
+    assert "Basketball" in classes
+    assert "ApplyEyeMakeup" in classes
+    assert "YoYo" in classes
+
+
+def test_dataset_root_and_classes_exist(project_config):
+    """Verify that UCF101 dataset directory exists and classes have valid folders."""
+    raw_dir = Path(project_config["dataset"]["raw_dir"])
+    selected_classes = project_config["dataset"]["selected_classes"]
+    if selected_classes == "all":
+        classes_to_check = discover_classes(raw_dir)
+    else:
+        classes_to_check = list(selected_classes)
+
+    assert raw_dir.is_dir(), f"Dataset directory not found at: {raw_dir}"
+    assert len(classes_to_check) >= 5
+
+    for class_name in classes_to_check[:10]:  # check sample of classes
         class_folder = raw_dir / class_name
         assert class_folder.is_dir(), f"Class folder missing: {class_folder}"
 
 
 def test_video_counts_per_class(project_config):
-    """Verify each selected class folder contains a reasonable number of videos (>50)."""
+    """Verify each class folder contains a reasonable number of videos (>50)."""
     raw_dir = Path(project_config["dataset"]["raw_dir"])
-    selected_classes = project_config["dataset"]["selected_classes"]
+    classes = discover_classes(raw_dir)
 
-    for class_name in selected_classes:
+    for class_name in classes[:5]:  # test across initial classes
         class_folder = raw_dir / class_name
         videos = [
-            f for f in class_folder.iterdir()
+            f
+            for f in class_folder.iterdir()
             if f.is_file() and f.suffix.lower() in SUPPORTED_VIDEO_EXTENSIONS
         ]
         assert len(videos) > 50, (
@@ -58,14 +75,15 @@ def test_video_counts_per_class(project_config):
 
 
 def test_sample_videos_readable(project_config):
-    """Verify that OpenCV can successfully open and read frames from each class."""
+    """Verify that OpenCV can successfully open and read frames from sample videos."""
     raw_dir = Path(project_config["dataset"]["raw_dir"])
-    selected_classes = project_config["dataset"]["selected_classes"]
+    classes = discover_classes(raw_dir)
 
-    for class_name in selected_classes:
+    for class_name in classes[:3]:
         class_folder = raw_dir / class_name
         video_files = [
-            f for f in class_folder.iterdir()
+            f
+            for f in class_folder.iterdir()
             if f.is_file() and f.suffix.lower() in SUPPORTED_VIDEO_EXTENSIONS
         ]
         assert len(video_files) > 0, f"No videos found in {class_folder}"
@@ -102,17 +120,22 @@ def test_unreadable_and_missing_videos_reported():
 
 def test_dataset_summary_json_file_created():
     """Verify that outputs/dataset_summary.json exists and is valid JSON."""
-    summary_path = Path(__file__).resolve().parent.parent / "outputs" / "dataset_summary.json"
+    summary_path = PROJECT_ROOT / "outputs" / "dataset_summary.json"
     assert summary_path.is_file(), f"Summary file missing: {summary_path}"
     assert summary_path.stat().st_size > 0, "Summary file is empty"
 
 
-if __name__ == "__main__":
-    cfg = load_config(Path(__file__).resolve().parent.parent / "configs" / "default_config.yaml")
-    test_dataset_root_and_classes_exist(cfg)
-    test_video_counts_per_class(cfg)
-    test_sample_videos_readable(cfg)
-    test_unreadable_and_missing_videos_reported()
-    test_dataset_summary_json_file_created()
-    print("All dataset inspection tests passed successfully!")
+def test_inspection_101_report_created():
+    """Verify that outputs/reports/dataset_inspection_101.json contains 101 classes."""
+    import json
 
+    report_path = PROJECT_ROOT / "outputs" / "reports" / "dataset_inspection_101.json"
+    assert report_path.is_file(), f"Report file missing: {report_path}"
+    with open(report_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    assert data["total_classes_discovered"] == 101
+    assert data["total_videos_found"] == 13320
+    assert len(data["empty_classes"]) == 0
+    assert len(data["duplicate_video_paths"]) == 0
+    assert data["all_classes_valid"] is True

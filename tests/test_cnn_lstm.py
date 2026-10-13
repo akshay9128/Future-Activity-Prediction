@@ -36,6 +36,23 @@ def test_cnn_lstm_head_output_shape():
     assert np.all(output.numpy() >= 0.0), "Class probabilities must be non-negative"
 
 
+def test_cnn_lstm_head_output_shape_101():
+    """Verify that the CNN + LSTM head maps (B, 16, 1280) to (B, 101)."""
+    model = build_cnn_lstm_head(
+        sequence_length=16,
+        feature_dim=1280,
+        lstm_units=64,
+        num_classes=101,
+    )
+    dummy_input = np.random.uniform(-1.0, 1.0, size=(4, 16, 1280)).astype(np.float32)
+    output = model(dummy_input, training=False)
+
+    assert output.shape == (4, 101), f"Expected shape (4, 101), got {output.shape}"
+    prob_sums = np.sum(output.numpy(), axis=1)
+    np.testing.assert_allclose(prob_sums, 1.0, rtol=1e-5)
+    assert np.all(output.numpy() >= 0.0), "Class probabilities must be non-negative"
+
+
 def test_cnn_lstm_sequence_representation_shape():
     """Verify return_sequences=True yields (B, 16, lstm_units) for attention integration."""
     seq_model = build_cnn_lstm_head(
@@ -112,7 +129,7 @@ def test_saved_cnn_lstm_model_reload():
     pred2 = reloaded.predict(dummy_input, verbose=0)
 
     np.testing.assert_allclose(pred1, pred2, atol=1e-6)
-    assert pred1.shape == (2, 5)
+    assert pred1.shape in ((2, 5), (2, 101))
 
 
 def test_cnn_lstm_artifacts_exist():
@@ -138,7 +155,7 @@ def test_end_to_end_cnn_lstm_prediction():
     raw_video = np.random.uniform(-1.0, 1.0, size=(1, 16, 224, 224, 3)).astype(np.float32)
     probs = e2e_model.predict(raw_video, verbose=0)
 
-    assert probs.shape == (1, 5)
+    assert probs.shape in ((1, 5), (1, 101))
     np.testing.assert_allclose(np.sum(probs), 1.0, rtol=1e-4)
 
 

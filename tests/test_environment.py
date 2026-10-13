@@ -36,6 +36,8 @@ def test_essential_files_exist():
         project_root / ".gitignore",
         project_root / "requirements.txt",
         project_root / "README.md",
+        project_root / "REPRODUCIBILITY.md",
+        project_root / "smoke_test.py",
         project_root / "configs" / "default_config.yaml",
         project_root / "src" / "__init__.py",
     ]

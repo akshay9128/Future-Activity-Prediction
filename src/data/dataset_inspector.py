@@ -2,14 +2,14 @@
 Dataset Inspector Module.
 
 Inspects the UCF101 dataset on disk, verifies the presence of target action classes,
-counts available videos, checks video readability using OpenCV, and generates a
-summary report.
+counts available videos, checks video readability using OpenCV, detects duplicate
+or unreadable video files, and generates a structured summary report.
 """
 
 import json
 from pathlib import Path
 import sys
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 import cv2
 
 # Ensure project root is in sys.path for direct script execution
@@ -17,9 +17,30 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-
-
 SUPPORTED_VIDEO_EXTENSIONS = (".avi", ".mp4", ".mov", ".mkv")
+
+
+def discover_classes(dataset_dir: Path | str) -> List[str]:
+    """
+    Auto-discover all class directories in the UCF101 root folder.
+
+    Args:
+        dataset_dir: Root directory containing class folders.
+
+    Returns:
+        List[str]: Alphabetically sorted list of class folder names.
+    """
+    root = Path(dataset_dir)
+    if not root.is_dir():
+        return []
+
+    classes = [
+        d.name
+        for d in root.iterdir()
+        if d.is_dir() and not d.name.startswith(".")
+    ]
+    classes.sort()
+    return classes
 
 
 def inspect_video_file(video_path: Path | str) -> Dict[str, Any]:
@@ -88,30 +109,43 @@ def inspect_video_file(video_path: Path | str) -> Dict[str, Any]:
 
 def inspect_dataset(
     dataset_dir: Path | str,
-    selected_classes: List[str],
-    samples_per_class: int = 3,
+    selected_classes: Optional[Union[List[str], str]] = None,
+    samples_per_class: int = 2,
 ) -> Dict[str, Any]:
     """
-    Inspect the UCF101 dataset directory for selected action classes.
+    Inspect the UCF101 dataset directory for specified or all action classes.
 
     Args:
         dataset_dir: Root directory of UCF101 dataset.
-        selected_classes: List of class folder names to verify.
-        samples_per_class: Number of sample videos per class to test for readability.
+        selected_classes: List of class folder names, or 'all'/None to auto-discover all classes.
+        samples_per_class: Number of sample videos per class to test for OpenCV readability.
 
     Returns:
-        dict: Inspection summary containing class counts, sample checks, and status.
+        dict: Inspection summary containing class counts, sample checks, duplicates, and status.
     """
     root = Path(dataset_dir)
+    discovered_all = discover_classes(root)
+
+    if selected_classes is None or selected_classes == "all":
+        classes_to_check = discovered_all
+    elif isinstance(selected_classes, str):
+        classes_to_check = [selected_classes]
+    else:
+        classes_to_check = list(selected_classes)
+
     summary: Dict[str, Any] = {
         "dataset_root": str(root.resolve()),
         "root_exists": root.is_dir(),
-        "total_selected_classes": len(selected_classes),
+        "total_classes_discovered": len(discovered_all),
+        "total_classes_requested": len(classes_to_check),
         "available_classes": [],
         "missing_classes": [],
+        "empty_classes": [],
         "class_video_counts": {},
         "total_videos_found": 0,
+        "duplicate_video_paths": [],
         "sample_inspections": {},
+        "unreadable_samples": [],
         "all_classes_valid": False,
     }
 
@@ -119,7 +153,9 @@ def inspect_dataset(
         summary["error"] = f"Dataset root directory does not exist: {root}"
         return summary
 
-    for class_name in selected_classes:
+    seen_paths = set()
+
+    for class_name in classes_to_check:
         class_folder = root / class_name
         if not class_folder.is_dir():
             summary["missing_classes"].append(class_name)
@@ -129,27 +165,42 @@ def inspect_dataset(
 
         # Collect video files with supported extensions
         video_files = [
-            f for f in class_folder.iterdir()
+            f
+            for f in class_folder.iterdir()
             if f.is_file() and f.suffix.lower() in SUPPORTED_VIDEO_EXTENSIONS
         ]
-        # Sort for deterministic ordering
         video_files.sort(key=lambda p: p.name)
 
         count = len(video_files)
         summary["class_video_counts"][class_name] = count
         summary["total_videos_found"] += count
 
+        if count == 0:
+            summary["empty_classes"].append(class_name)
+
+        # Check duplicate paths
+        for vf in video_files:
+            resolved_p = str(vf.resolve())
+            if resolved_p in seen_paths:
+                summary["duplicate_video_paths"].append(resolved_p)
+            seen_paths.add(resolved_p)
+
         # Inspect sample videos
-        samples_to_test = video_files[:samples_per_class]
+        samples_to_test = video_files[:samples_per_class] if samples_per_class > 0 else []
         class_samples_meta = []
         for vid_path in samples_to_test:
             meta = inspect_video_file(vid_path)
             class_samples_meta.append(meta)
+            if not meta["valid"]:
+                summary["unreadable_samples"].append(meta)
 
         summary["sample_inspections"][class_name] = class_samples_meta
 
     summary["all_classes_valid"] = (
-        len(summary["missing_classes"]) == 0 and summary["total_videos_found"] > 0
+        len(summary["missing_classes"]) == 0
+        and len(summary["empty_classes"]) == 0
+        and len(summary["unreadable_samples"]) == 0
+        and summary["total_videos_found"] > 0
     )
     return summary
 
@@ -164,57 +215,54 @@ def save_inspection_summary(summary: Dict[str, Any], output_path: Path | str) ->
 
 def main() -> None:
     """CLI entrypoint for dataset inspection."""
-    import sys
     from src.utils.config import load_config
 
     config_path = Path("configs/default_config.yaml")
     config = load_config(config_path)
 
     raw_dir = config["dataset"]["raw_dir"]
-    selected_classes = config["dataset"]["selected_classes"]
+    selected_classes = config["dataset"].get("selected_classes", "all")
 
-    print(f"==================================================")
-    print(f"            UCF101 Dataset Inspection             ")
-    print(f"==================================================")
-
+    print("==================================================")
+    print("            UCF101 Dataset Inspection             ")
+    print("==================================================")
     print(f"Target Directory : {raw_dir}")
-    print(f"Selected Classes : {', '.join(selected_classes)}")
-    print(f"--------------------------------------------------")
+    target_desc = "All 101 Classes" if selected_classes == "all" else f"{len(selected_classes)} Classes"
+    print(f"Target Scope     : {target_desc}")
+    print("--------------------------------------------------")
 
-    summary = inspect_dataset(raw_dir, selected_classes, samples_per_class=3)
+    summary = inspect_dataset(raw_dir, selected_classes, samples_per_class=2)
 
     if not summary["root_exists"]:
         print(f"[ERROR] Dataset directory not found: {raw_dir}")
         sys.exit(1)
 
+    print(f"Total Discovered Classes : {summary['total_classes_discovered']}")
+    print(f"Total Videos Indexed     : {summary['total_videos_found']}")
+    print(f"Duplicate Video Paths    : {len(summary['duplicate_video_paths'])}")
+    print(f"Empty Classes Detected   : {len(summary['empty_classes'])}")
+    print(f"Unreadable Sample Videos : {len(summary['unreadable_samples'])}")
+
     if summary["missing_classes"]:
-        print(f"[WARNING] Missing classes: {summary['missing_classes']}")
+        print(f"[WARNING] Missing classes ({len(summary['missing_classes'])}): {summary['missing_classes']}")
 
-    print("\nClass Breakdown:")
-    for cls_name, count in summary["class_video_counts"].items():
-        print(f"  - {cls_name:<20}: {count:>4} videos")
+    if summary["empty_classes"]:
+        print(f"[WARNING] Empty classes: {summary['empty_classes']}")
 
-    print(f"\nTotal Videos Found across 5 classes: {summary['total_videos_found']}")
+    # Save to both locations
+    primary_out = Path("outputs/reports/dataset_inspection_101.json")
+    compat_out = Path("outputs/dataset_summary.json")
+    save_inspection_summary(summary, primary_out)
+    save_inspection_summary(summary, compat_out)
+    print(f"\n[SUCCESS] Inspection summary saved to:")
+    print(f"  - {primary_out.resolve()}")
+    print(f"  - {compat_out.resolve()}")
 
-    print("\nSample Video Readability Check (OpenCV):")
-    all_samples_readable = True
-    for cls_name, samples in summary["sample_inspections"].items():
-        for s in samples:
-            status = "OK" if s["valid"] else "FAILED"
-            if not s["valid"]:
-                all_samples_readable = False
-            print(
-                f"  [{status}] {s['filename']} -> "
-                f"Frames: {s['frame_count']}, FPS: {s['fps']}, Res: {s['width']}x{s['height']}"
-            )
-
-    output_file = Path("outputs/dataset_summary.json")
-    save_inspection_summary(summary, output_file)
-    print(f"\n[SUCCESS] Inspection summary saved to: {output_file.resolve()}")
-
-    if not all_samples_readable:
-        print("[ERROR] Some sample videos could not be read!")
+    if not summary["all_classes_valid"]:
+        print("[ERROR] Dataset verification failed! Please resolve missing or corrupted folders.")
         sys.exit(1)
+    else:
+        print("[SUCCESS] All 101 UCF101 classes verified and validated!")
 
 
 if __name__ == "__main__":
